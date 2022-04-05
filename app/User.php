@@ -39,4 +39,31 @@ class User extends Authenticatable
     {
         return $this->hasMany(managerTeam::class);
     }
+    public function insert()
+    {
+    }
+    public function getAll()
+    {
+        $users = $this->get();
+        return $users;
+    }
+    public function getById($id)
+    {
+        $user = $this->find($id);
+        return $user;
+    }
+    public function edit($id, $name, $email, $phone, $role)
+    {
+        $user = $this->getById($id);
+        $user->name = $name;
+        $user->email = $email;
+        $user->phone = $phone;
+        $user->role = $role;
+        $user->update();
+    }
+    public function remove($id)
+    {
+        $user = $this->getById($id);
+        $user->delete();
+    }
 }

@@ -27,7 +27,11 @@ class adminController extends Controller
     public function index()
     {
         try {
-            $users = User::get();
+            $user = new User();
+            $users = $user->getAll();
+            if (!$users) {
+                throw new ModelNotFoundException("No User");
+            }
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -38,7 +42,8 @@ class adminController extends Controller
     public function getsalary()
     {
         try {
-            $users = User::get();
+            $user = new User();
+            $users = $user->getAll();
             if (!$users) {
                 throw new ModelNotFoundException("No User");
             }
@@ -50,9 +55,8 @@ class adminController extends Controller
     public function getAttendace()
     {
         try {
-            $user_att = Attendance::select(DB::raw('user_id, SUM(if(`Attendance`=1,1,0)) as Present, SUM(if(`Attendance`=1,0,1)) as Absent, SUM(if(`request`="Pending",1,0)) as Request'))
-                ->groupBy('user_id')
-                ->paginate(5);
+            $atten = new Attendance();
+            $user_att = $atten->getAttendanceUpdate();
             if (!$user_att) {
                 throw new ModelNotFoundException("No User");
             }
@@ -65,7 +69,8 @@ class adminController extends Controller
     public function getPendingRequest()
     {
         try {
-            $user_att = Attendance::where('request', 'Pending')->get();
+            $attendance = new Attendance();
+            $user_att = $attendance->PendingRequest();
             if (!$user_att) {
                 throw new ModelNotFoundException("No User");
             }
@@ -77,7 +82,11 @@ class adminController extends Controller
     public function getEdit($id)
     {
         try {
-            $user = User::findOrFail($id);
+            $user = new User();
+            $user = $user->getById($id);
+            if (!$user) {
+                throw new ModelNotFoundException("No User");
+            }
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -102,25 +111,23 @@ class adminController extends Controller
             'email' => 'required|string|email|max:255',
         ]);
         try {
-            $user = User::findOrFail($id);
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $user->phone = $request->input('phone');
-            $user->role = $request->input('role');
-            $user->save();
+            $user = new User();
+            $name = $request->input('name');
+            $email = $request->input('email');
+            $phone = $request->input('phone');
+            $role = $request->input('role');
+            $user->edit($id, $name, $email, $phone, $role);
         } catch (\Exception $exception) {
             return view('error.show');
         }
-        return redirect('/employees');
+        return back()->with('message', 'Updated');
     }
 
     public function requestApproved($id)
     {
         try {
-            Attendance::where('id', '=', $id)->update([
-                'request' => 'Approved',
-                'attendance' => 1
-            ]);
+            $attendance = new Attendance();
+            $attendance->attendanceRequest($id, 1);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -129,10 +136,8 @@ class adminController extends Controller
     public function requestRejected($id)
     {
         try {
-            Attendance::where('id', '=', $id)->update([
-                'request' => 'Rejected',
-                'attendance' => 0
-            ]);
+            $attendance = new Attendance();
+            $attendance->attendanceRequest($id, 0);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -145,9 +150,10 @@ class adminController extends Controller
             'salary' => 'required',
         ]);
         try {
-            $user = User::findOrFail($id);
+            $salary =  request()->salary;
             User::where('id', '=', $id)->update(['name' => request()->name]);
-            salary::where('user_id', '=', $id)->update(['salary' => request()->salary]);
+            $salary = new salary();
+            $salary->salaryUpdate($id, $salary);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -162,15 +168,16 @@ class adminController extends Controller
         ]);
         try {
             $id = Auth::user()->id;
-            User::where('id', '=', $id)->update([
-                'name' => request()->name,
-                'email' => request()->email,
-                'phone' => request()->phone
-            ]);
+            $user = new User();
+            $name = $request->input('name');
+            $email = $request->input('email');
+            $phone = $request->input('phone');
+            $role = Auth::user()->role;
+            $user->edit($id, $name, $email, $phone, $role);
         } catch (\Exception $exception) {
             return view('error.show');
         }
-        return redirect()->back();
+        return back()->with('message', 'Updated');
     }
 
     public function updatePassword(Request $request)
@@ -195,12 +202,14 @@ class adminController extends Controller
     public function delete($id)
     {
         try {
-            User::findOrFail($id)->delete();
-            managerTeam::where('employee_id', $id)->delete();
+            $managerTeam = new managerTeam();
+            $managerTeam->deleteByEmpID($id);
+            $user = new User();
+            $user->remove($id);
         } catch (\Exception $exception) {
             return view('error.show');
         }
-        return Redirect()->back();
+        return Redirect('/employees');
     }
     // public function search()
     // {

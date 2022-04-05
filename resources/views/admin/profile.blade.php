@@ -39,51 +39,58 @@
                         <div class=" col-md-10 col-md-offset-2 ">
                             <div class="panel panel-default">
                                 <div class="panel-heading"><b>{{Auth::user()->name}} Profile</b></div>
-                
+                                @if(Session::has('message'))
+                                <div class="panel-heading " style="text-align: center">
+                                    <h4 style="color: green">{{Session::get('message')}}</h4>
+                                </div>
+                                @endif
                                 <div class="panel-body">
                                     <form class="form-horizontal" method="POST" action="/adminprofile/update">
                                         {{ csrf_field() }}
                                         {{method_field('PATCH')}}
-                                        
-                
+
+
                                         <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                             <label for="name" class="col-md-4 control-label">Name</label>
-                
+
                                             <div class="col-md-10">
-                                                <input id="name" type="text" class="form-control" name="name" value="{{Auth::user()->name}}" required autofocus>
-                
+                                                <input id="name" type="text" class="form-control" name="name"
+                                                    value="{{Auth::user()->name}}" required autofocus>
+
                                                 @if ($errors->has('name'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('name') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
-                
+
                                         <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-                
+
                                             <div class="col-md-10">
-                                                <input id="email" type="email" class="form-control" name="email" value="{{Auth::user()->email}}" required>
-                
+                                                <input id="email" type="email" class="form-control" name="email"
+                                                    value="{{Auth::user()->email}}" required>
+
                                                 @if ($errors->has('email'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('email') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
-                
+
                                         <div class="form-group {{ $errors->has('phone') ? ' has-error' : '' }}">
                                             <label for="phone" class="col-md-4 control-label">Phone Number</label>
-                
+
                                             <div class="col-md-10">
-                                                <input id="phone" type="phone" class="form-control" name="phone" value="{{Auth::user()->phone}}" required>
-                
+                                                <input id="phone" type="phone" class="form-control" name="phone"
+                                                    value="{{Auth::user()->phone}}" required>
+
                                                 @if ($errors->has('phone'))
-                                                    <span class="help-block">
-                                                        <strong> {{ $errors->first('phone') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong> {{ $errors->first('phone') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
@@ -113,7 +120,7 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    
+
 
 
     <!-- Bootstrap core JavaScript-->

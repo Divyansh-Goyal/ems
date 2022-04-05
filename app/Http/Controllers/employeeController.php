@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Attendance;
 use App\managerTeam;
 use App\User;
+use Attribute;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,11 +57,12 @@ class employeeController extends Controller
         ]);
         try {
             $id = Auth::user()->id;
-            User::where('id', '=', $id)->update([
-                'name' => request()->name,
-                'email' => request()->email,
-                'phone' => request()->phone
-            ]);
+            $user = new User();
+            $name = $request->input('name');
+            $email = $request->input('email');
+            $phone = $request->input('phone');
+            $role = Auth::user()->role;
+            $user->edit($id, $name, $email, $phone, $role);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -93,16 +95,14 @@ class employeeController extends Controller
     {
         try {
             $user = Auth::user();
-            $user_att = Attendance::select('created_at')->where('user_id', $user->id)->where('created_at', '>=', date('Y-m-d') . ' 00:00:00')->count();
+            $attendance = new Attendance();
+            $user_att = $attendance->total($user->id);
             if ($user_att > 0) {
                 return back()->with('msg', 'Attendance Request Alreaday Submitted');
             } else {
                 $shift_time = $request->out - $request->in;
                 $attendance = new Attendance();
-                $attendance->request = 'Pending';
-                $attendance->shift_time = $shift_time;
-                $attendance->Attendance = 0;
-                $user->Attendance()->save($attendance);
+                $attendance->addRequest($user->id, $shift_time);
             }
         } catch (\Exception $exception) {
             return view('error.show');
