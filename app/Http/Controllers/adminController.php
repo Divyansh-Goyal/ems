@@ -27,8 +27,8 @@ class adminController extends Controller
     public function index()
     {
         try {
-            $user = new User();
-            $users = $user->getAll();
+
+            $users = User::getAll();
             if (!$users) {
                 throw new ModelNotFoundException("No User");
             }
@@ -42,8 +42,7 @@ class adminController extends Controller
     public function getsalary()
     {
         try {
-            $user = new User();
-            $users = $user->getAll();
+            $users = User::getAll();
             if (!$users) {
                 throw new ModelNotFoundException("No User");
             }
@@ -55,8 +54,8 @@ class adminController extends Controller
     public function getAttendace()
     {
         try {
-            $atten = new Attendance();
-            $user_att = $atten->getAttendanceUpdate();
+
+            $user_att = Attendance::getAttendanceUpdate();
             if (!$user_att) {
                 throw new ModelNotFoundException("No User");
             }
@@ -69,8 +68,7 @@ class adminController extends Controller
     public function getPendingRequest()
     {
         try {
-            $attendance = new Attendance();
-            $user_att = $attendance->PendingRequest();
+            $user_att = Attendance::PendingRequest();
             if (!$user_att) {
                 throw new ModelNotFoundException("No User");
             }
@@ -82,8 +80,7 @@ class adminController extends Controller
     public function getEdit($id)
     {
         try {
-            $user = new User();
-            $user = $user->getById($id);
+            $user = User::getById($id);
             if (!$user) {
                 throw new ModelNotFoundException("No User");
             }
@@ -111,12 +108,12 @@ class adminController extends Controller
             'email' => 'required|string|email|max:255',
         ]);
         try {
-            $user = new User();
+
             $name = $request->input('name');
             $email = $request->input('email');
             $phone = $request->input('phone');
             $role = $request->input('role');
-            $user->edit($id, $name, $email, $phone, $role);
+            User::edit($id, $name, $email, $phone, $role);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -126,8 +123,7 @@ class adminController extends Controller
     public function requestApproved($id)
     {
         try {
-            $attendance = new Attendance();
-            $attendance->attendanceRequest($id, 1);
+            Attendance::attendanceRequest($id, 1);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -136,8 +132,7 @@ class adminController extends Controller
     public function requestRejected($id)
     {
         try {
-            $attendance = new Attendance();
-            $attendance->attendanceRequest($id, 0);
+            Attendance::attendanceRequest($id, 0);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -149,14 +144,13 @@ class adminController extends Controller
             'name' => 'required|max:255',
             'salary' => 'required',
         ]);
-        try {
-            $salary =  request()->salary;
-            User::where('id', '=', $id)->update(['name' => request()->name]);
-            $salary = new salary();
-            $salary->salaryUpdate($id, $salary);
-        } catch (\Exception $exception) {
-            return view('error.show');
-        }
+        // try {
+        $salary =   $request->input('salary');
+        User::where('id', '=', $id)->update(['name' => request()->name]);
+        salary::salaryUpdate($id, $salary);
+        // } catch (\Exception $exception) {
+        //     return view('error.show');
+        // }
         return redirect()->back();
     }
     public function updateprofile(Request $request)
@@ -168,12 +162,12 @@ class adminController extends Controller
         ]);
         try {
             $id = Auth::user()->id;
-            $user = new User();
+
             $name = $request->input('name');
             $email = $request->input('email');
             $phone = $request->input('phone');
             $role = Auth::user()->role;
-            $user->edit($id, $name, $email, $phone, $role);
+            User::edit($id, $name, $email, $phone, $role);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -202,10 +196,8 @@ class adminController extends Controller
     public function delete($id)
     {
         try {
-            $managerTeam = new managerTeam();
-            $managerTeam->deleteByEmpID($id);
-            $user = new User();
-            $user->remove($id);
+            managerTeam::deleteByEmpID($id);
+            user::remove($id);
         } catch (\Exception $exception) {
             return view('error.show');
         }

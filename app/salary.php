@@ -6,20 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class salary extends Model
 {
-    public function getAll()
+    public static function getAll()
     {
-        $salary = $this->get();
+        $salary = salary::get();
         return $salary;
     }
-    public function getByUserId($id)
+    public static function getByUserId($id)
     {
-        $salary = $this->where('user_id', '=', $id)->get();
+        $salary = salary::where('user_id', '=', $id)->get();
         return $salary;
     }
-    public function salaryUpdate($id)
+    public static function salaryUpdate($id, $salary)
     {
-        $salary = $this->getByUserId($id);
-        $salary->salary = $salary;
-        $salary->update();
+        salary::where('user_id', '=', $id)
+            ->update(['salary' => $salary]);
     }
 }

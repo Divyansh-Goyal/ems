@@ -57,12 +57,11 @@ class employeeController extends Controller
         ]);
         try {
             $id = Auth::user()->id;
-            $user = new User();
             $name = $request->input('name');
             $email = $request->input('email');
             $phone = $request->input('phone');
             $role = Auth::user()->role;
-            $user->edit($id, $name, $email, $phone, $role);
+            User::edit($id, $name, $email, $phone, $role);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -74,35 +73,33 @@ class employeeController extends Controller
         $this->validate($request, [
             'emp_id' => 'required|numeric',
         ]);
-        // try {
-        $count = User::where('id', $request->emp_id)
-            ->where('role', 'Employee')
-            ->count();
-        if ($count > 0) {
-            $user = Auth::user();
-            $managerTeam = new managerTeam();
-            $managerTeam->employee_id = $request->emp_id;
-            $user->managerTeam()->save($managerTeam);
-        } else {
-            return back()->with('msg', 'Employee Does Not Exist');
+        try {
+            $count = User::where('id', $request->emp_id)
+                ->where('role', 'Employee')
+                ->count();
+            if ($count > 0) {
+                $user = Auth::user();
+                $managerTeam = new managerTeam();
+                $managerTeam->employee_id = $request->emp_id;
+                $user->managerTeam()->save($managerTeam);
+            } else {
+                return back()->with('msg', 'Employee Does Not Exist');
+            }
+        } catch (\Exception $exception) {
+            return view('error.show');
         }
-        // } catch (\Exception $exception) {
-        //     return view('error.show');
-        // }
         return back()->with('msg', 'Employee Added in your Team');
     }
     public function attendanceRequest(Request $request)
     {
         try {
             $user = Auth::user();
-            $attendance = new Attendance();
-            $user_att = $attendance->total($user->id);
+            $user_att = Attendance::total($user->id);
             if ($user_att > 0) {
                 return back()->with('msg', 'Attendance Request Alreaday Submitted');
             } else {
                 $shift_time = $request->out - $request->in;
-                $attendance = new Attendance();
-                $attendance->addRequest($user->id, $shift_time);
+                Attendance::addRequest($user->id, $shift_time);
             }
         } catch (\Exception $exception) {
             return view('error.show');

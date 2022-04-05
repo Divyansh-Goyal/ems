@@ -10,9 +10,9 @@ class managerTeam extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function deleteByEmpID($id)
+    public static function deleteByEmpID($id)
     {
-        $this->where('employee_id', $id)
+        managerTeam::where('employee_id', $id)
             ->delete();
     }
 }

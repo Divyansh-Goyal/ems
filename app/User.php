@@ -42,28 +42,28 @@ class User extends Authenticatable
     public function insert()
     {
     }
-    public function getAll()
+    public static function getAll()
     {
-        $users = $this->get();
+        $users = User::get();
         return $users;
     }
-    public function getById($id)
+    public static function getById($id)
     {
-        $user = $this->find($id);
+        $user = User::find($id);
         return $user;
     }
-    public function edit($id, $name, $email, $phone, $role)
+    public static function edit($id, $name, $email, $phone, $role)
     {
-        $user = $this->getById($id);
+        $user = User::find($id);
         $user->name = $name;
         $user->email = $email;
         $user->phone = $phone;
         $user->role = $role;
         $user->update();
     }
-    public function remove($id)
+    public static function remove($id)
     {
-        $user = $this->getById($id);
+        $user = User::find($id);
         $user->delete();
     }
 }
