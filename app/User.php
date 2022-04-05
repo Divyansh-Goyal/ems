@@ -66,4 +66,8 @@ class User extends Authenticatable
         $user = User::find($id);
         $user->delete();
     }
+    public static function updateName($id, $name)
+    {
+        User::where('id', '=', $id)->update(['name' => $name]);
+    }
 }

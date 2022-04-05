@@ -15,4 +15,10 @@ class managerTeam extends Model
         managerTeam::where('employee_id', $id)
             ->delete();
     }
+    public static function getEmpID($id)
+    {
+        $emp_id = managerTeam::select('employee_id')
+            ->where('user_id', $id)->get();
+        return $emp_id;
+    }
 }

@@ -144,13 +144,14 @@ class adminController extends Controller
             'name' => 'required|max:255',
             'salary' => 'required',
         ]);
-        // try {
-        $salary =   $request->input('salary');
-        User::where('id', '=', $id)->update(['name' => request()->name]);
-        salary::salaryUpdate($id, $salary);
-        // } catch (\Exception $exception) {
-        //     return view('error.show');
-        // }
+        try {
+            $salary =   $request->input('salary');
+            $name = $request->input('name');
+            User::updateName($id, $name);
+            salary::salaryUpdate($id, $salary);
+        } catch (\Exception $exception) {
+            return view('error.show');
+        }
         return redirect()->back();
     }
     public function updateprofile(Request $request)
@@ -162,7 +163,6 @@ class adminController extends Controller
         ]);
         try {
             $id = Auth::user()->id;
-
             $name = $request->input('name');
             $email = $request->input('email');
             $phone = $request->input('phone');

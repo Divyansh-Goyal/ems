@@ -33,8 +33,7 @@ class employeeController extends Controller
         try {
             if (Auth::user()->role == 'Manager') {
                 $id = Auth::user()->id;
-                $team_ids = managerTeam::select('employee_id')
-                    ->where('user_id', $id)->get();
+                $team_ids = managerTeam::getEmpId($id);
                 $id = [];
                 foreach ($team_ids as $teamId) {
                     array_push($id, $teamId->employee_id);
