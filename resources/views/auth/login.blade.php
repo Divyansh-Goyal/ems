@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,51 +43,53 @@
                                     </div>
                                     <form class="user" method="POST" action="{{ route('login') }}">
                                         {{ csrf_field() }}
-                
+
                                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                                <input id="email" type="email" class="form-control form-control-user" name="email" value="{{ old('email') }}" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address..."required autofocus>
-                
-                                                @if ($errors->has('email'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('email') }}</strong>
-                                                    </span>
-                                                @endif
+                                            <input id="email" type="email" class="form-control form-control-user"
+                                                name="email" value="{{ old('email') }}" aria-describedby="emailHelp"
+                                                placeholder="Enter Email Address..." required autofocus>
+
+                                            @if ($errors->has('email'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                            @endif
                                         </div>
-                
+
                                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                
-                                                <input id="password" type="password" class="form-control form-control-user" name="password" placeholder="Password" required>
-                
-                                                @if ($errors->has('password'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('password') }}</strong>
-                                                    </span>
-                                                @endif
+
+                                            <input id="password" type="password" class="form-control form-control-user"
+                                                name="password" placeholder="Password" required>
+
+                                            @if ($errors->has('password'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                            @endif
                                         </div>
-                
-                                        <div class="form-group">
+
+                                        {{-- <div class="form-group">
                                             <div class="col-md-8 col-md-offset-4">
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                                        <input type="checkbox" name="remember" {{ old('remember')
+                                                            ? 'checked' : '' }}> Remember Me
                                                     </label>
                                                 </div>
                                             </div>
-                                        </div>
-                
+                                        </div> --}}
+
                                         <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-user btn-block">
-                                                    Login
-                                                </button>
-                
-                                            </div>
+                                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                                Login
+                                            </button>
+
                                         </div>
-                                    </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="Large" href="{{ route('password.request') }}">Forgot Password?</a>
-                                    </div>
+                                </div>
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="Large" href="{{ route('password.request') }}">Forgot Password?</a>
                                 </div>
                             </div>
                         </div>
@@ -96,6 +97,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->

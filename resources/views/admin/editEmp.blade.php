@@ -10,7 +10,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Profile Management</title>
+    <title>Admin Pannel</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;

@@ -20,8 +20,8 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+            aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
             <span>Profile</span>
         </a>
@@ -44,8 +44,8 @@
             <span>Employees List</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-            aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+            aria-controls="collapseTwo">
             <i class="fas fa-fw fa-calendar"></i>
             <span>Attendance</span>
         </a>
@@ -62,7 +62,7 @@
             <span>Employees Salary</span></a>
     </li>
 
-    
+
     <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Sidebar Toggler (Sidebar) -->
@@ -70,7 +70,7 @@
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 
-    
+
 
 </ul>
 <!-- End of Sidebar -->

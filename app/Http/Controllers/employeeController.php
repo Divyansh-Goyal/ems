@@ -73,14 +73,11 @@ class employeeController extends Controller
             'emp_id' => 'required|numeric',
         ]);
         try {
-            $count = User::where('id', $request->emp_id)
-                ->where('role', 'Employee')
-                ->count();
+            $count = User::total($request->id);
             if ($count > 0) {
                 $user = Auth::user();
-                $managerTeam = new managerTeam();
-                $managerTeam->employee_id = $request->emp_id;
-                $user->managerTeam()->save($managerTeam);
+                $emp_id = $request->emp_id;
+                managerTeam::addTeamMember($user->id, $emp_id);
             } else {
                 return back()->with('msg', 'Employee Does Not Exist');
             }

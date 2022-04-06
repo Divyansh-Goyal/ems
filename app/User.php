@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -39,9 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(managerTeam::class);
     }
-    public function insert()
-    {
-    }
+    // public function insert()
+    // {
+    // }
     public static function getAll()
     {
         $users = User::get();
@@ -69,5 +71,17 @@ class User extends Authenticatable
     public static function updateName($id, $name)
     {
         User::where('id', '=', $id)->update(['name' => $name]);
+    }
+    public static function total($id)
+    {
+        $count = User::where('id', $id)
+            ->where('role', 'Employee')
+            ->count();
+        return $count;
+    }
+    public static function updatePassword($password)
+    {
+        user::where('email', Auth::user()->email)
+            ->update(['password' => Hash::make($password)]);
     }
 }

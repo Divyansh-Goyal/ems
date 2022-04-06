@@ -38,7 +38,15 @@
       @include('admin.topbar')
       <!-- Main Content -->
       <div id="content">
+        {{-- <div class="row" style="width:40%">
+          <div class="col">
 
+            FROM:<input type="date" class="form-control" id="appt" name="in" value="{{date('H:m')}}">
+          </div>
+          <div class="col">
+            TO:<input type="date" class="form-control" id="appt" name="out" value="{{date('H:m')}}">
+          </div>
+        </div> --}}
         <table class="table table-striped" id="myTable">
           <div class="table-title">
             <div class="row">

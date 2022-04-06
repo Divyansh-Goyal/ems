@@ -183,8 +183,7 @@ class adminController extends Controller
         ]);
         try {
             if (Hash::check($request->get('current_password'), Auth::user()->password)) {
-                User::where('email', Auth::user()->email)
-                    ->update(['password' => Hash::make($request->password)]);
+                User::updatePassword($request->password);
             } else {
                 return back()->with('msg', 'Current Password Do not Match');
             }

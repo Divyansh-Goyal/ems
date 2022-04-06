@@ -21,4 +21,11 @@ class managerTeam extends Model
             ->where('user_id', $id)->get();
         return $emp_id;
     }
+    public static function addTeamMember($id, $emp_id)
+    {
+        $managerTeam = new managerTeam();
+        $managerTeam->employee_id = $emp_id;
+        $managerTeam->user_id = $id;
+        $managerTeam->save();
+    }
 }
