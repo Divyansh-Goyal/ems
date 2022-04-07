@@ -38,15 +38,21 @@
       @include('admin.topbar')
       <!-- Main Content -->
       <div id="content">
-        {{-- <div class="row" style="width:40%">
-          <div class="col">
+        <form action="" method="GET">
+          <div class="row" style="width: 55%">
+            <div class="col">
+              <input type="date" class="form-control" id="appt" name="from" value="{{$from}}">
+            </div>
+            <div class="col">
+              <input type="date" class="form-control" id="appt" name="to" value="{{$to}}">
+            </div>
+            <div class="col">
+              <button class="btn btn-primary">Apply</button>
+            </div>
+          </div>
+        </form>
 
-            FROM:<input type="date" class="form-control" id="appt" name="in" value="{{date('H:m')}}">
-          </div>
-          <div class="col">
-            TO:<input type="date" class="form-control" id="appt" name="out" value="{{date('H:m')}}">
-          </div>
-        </div> --}}
+
         <table class="table table-striped" id="myTable">
           <div class="table-title">
             <div class="row">
@@ -85,6 +91,7 @@
           <td scope="row">{{$user->Present}}</td>
         </tr>
         @endforeach
+
       </tbody>
       </table>
 

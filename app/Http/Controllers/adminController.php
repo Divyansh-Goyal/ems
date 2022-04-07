@@ -51,18 +51,23 @@ class adminController extends Controller
         }
         return view('admin.salaryDetail', compact('users'));
     }
-    public function getAttendace()
+    public function getAttendace(Request $request)
     {
         try {
-
-            $user_att = Attendance::getAttendanceUpdate();
+            $from = $request['from'] ?? "";
+            $to = $request['to'] ?? "";
+            if ($from != "" && $to != "") {
+                $user_att = Attendance::getAttendancebetween($from, $to);
+            } else {
+                $user_att = Attendance::getAttendanceUpdate();
+            }
             if (!$user_att) {
                 throw new ModelNotFoundException("No User");
             }
         } catch (\Exception $exception) {
             return view('error.show');
         }
-        return view('admin.attendanceDetail', compact('user_att'));
+        return view('admin.attendanceDetail', compact('user_att', 'from', 'to'));
     }
 
     public function getPendingRequest()

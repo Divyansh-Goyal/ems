@@ -38,118 +38,133 @@
                     <div class="row justify-content-center">
                         <div class=" col-md-10 col-md-offset-2 ">
                             <div class="panel panel-default">
-                                <div class="panel-heading"><h3><b>ADD NEW MEMBER</b></h3></div>
+                                <div class="panel-heading">
+                                    <h3><b>ADD NEW MEMBER</b></h3>
+                                </div>
                                 @if(Session::has('msg'))
-                                <div class="panel-heading " ><h4 style="color: green">{{Session::get('msg')}}</h4></div>
+                                <div class="panel-heading ">
+                                    <h4 style="color: green">{{Session::get('msg')}}</h4>
+                                </div>
                                 @endif
                                 <div class="panel-body">
                                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                                         {{ csrf_field() }}
-                                        
-                
+
+
                                         <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                             <label for="name" class="col-md-4 control-label">Name</label>
-                
+
                                             <div class="col-md-10">
-                                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-                
+                                                <input id="name" type="text" class="form-control" name="name"
+                                                    value="{{ old('name') }}" required autofocus>
+
                                                 @if ($errors->has('name'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('name') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
-                
+
                                         <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-                
+
                                             <div class="col-md-10">
-                                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-                
+                                                <input id="email" type="email" class="form-control" name="email"
+                                                    value="{{ old('email') }}" required>
+
                                                 @if ($errors->has('email'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('email') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
-                
+
                                         <div class="form-group {{ $errors->has('phone') ? ' has-error' : '' }}">
                                             <label for="phone" class="col-md-4 control-label">Phone Number</label>
-                
+
                                             <div class="col-md-10">
-                                                <input id="phone" type="phone" class="form-control" name="phone" value="{{ old('phone') }}" required>
-                
+                                                <input id="phone" type="phone" class="form-control" name="phone"
+                                                    value="{{ old('phone') }}" required>
+
                                                 @if ($errors->has('phone'))
-                                                    <span class="help-block">
-                                                        <strong> {{ $errors->first('phone') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong> {{ $errors->first('phone') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
-                
+
                                         <div class="form-group {{ $errors->has('role') ? ' has-error' : '' }}">
                                             <label for="role" class="col-md-4 control-label">Employee Role</label>
-                
+
                                             <div class="col-md-10">
-                                                {{-- <input id="role"  class="form-control" name="role" list="rolename" required>
+                                                {{-- <input id="role" class="form-control" name="role" list="rolename"
+                                                    required>
                                                 <datalist id="rolename">
-                                                  <option value="Manager">
-                                                  <option value="Employee">
+                                                    <option value="Manager">
+                                                    <option value="Employee">
                                                 </datalist> --}}
-                                                <select class="form-control" name="role" aria-label="Default select example">
-                                                    <option selected>Choose the role</option>
+                                                <select class="form-control" name="role"
+                                                    aria-label="Default select example">
+                                                    <option selected value="Employee">Choose the role</option>
                                                     <option value="Manager">Manager</option>
                                                     <option value="Employee">Employee</option>
-                                                  </select>
-                
+                                                </select>
+
                                                 @if ($errors->has('role'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('role') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('role') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
 
                                         <div class="form-group {{ $errors->has('salary') ? ' has-error' : '' }}">
                                             <label for="phone" class="col-md-4 control-label">Annual Salary</label>
-                
+
                                             <div class="col-md-10">
-                                                <input id="salary" type="text" class="form-control" name="salary" value="{{ old('salary') }}" required>
-                
+                                                <input id="salary" type="text" class="form-control" name="salary"
+                                                    value="{{ old('salary') }}" required>
+
                                                 @if ($errors->has('salary'))
-                                                    <span class="help-block">
-                                                        <strong> {{ $errors->first('salary') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong> {{ $errors->first('salary') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
 
                                         <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
                                             <label for="password" class="col-md-4 control-label">Password</label>
-                
+
                                             <div class="col-md-10">
-                                                <input id="password" type="password" class="form-control" name="password" required>
-                
+                                                <input id="password" type="password" class="form-control"
+                                                    name="password" required>
+
                                                 @if ($errors->has('password'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('password') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('password') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
-                
+
                                         <div class="form-group">
-                                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-                
+                                            <label for="password-confirm" class="col-md-4 control-label">Confirm
+                                                Password</label>
+
                                             <div class="col-md-10">
-                                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                                <input id="password-confirm" type="password" class="form-control"
+                                                    name="password_confirmation" required>
                                             </div>
                                         </div>
                                         <div class="custom-control custom-checkbox mr-sm-2">
-                                            <input type="checkbox" name="isadmin" value="true" class="custom-control-input" id="customControlAutosizing">
-                                            <label class="custom-control-label" for="customControlAutosizing">Make Admin</label>
+                                            <input type="checkbox" name="isadmin" value="true"
+                                                class="custom-control-input" id="customControlAutosizing">
+                                            <label class="custom-control-label" for="customControlAutosizing">Make
+                                                Admin</label>
                                         </div>
                                         <br>
                                         <div class="form-group">
@@ -176,7 +191,7 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    
+
 
 
     <!-- Bootstrap core JavaScript-->
