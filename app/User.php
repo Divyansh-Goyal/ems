@@ -84,4 +84,8 @@ class User extends Authenticatable
         user::where('email', Auth::user()->email)
             ->update(['password' => Hash::make($password)]);
     }
+    public static function totalCount($type)
+    {
+        return (User::where("role", "=", $type)->count());
+    }
 }

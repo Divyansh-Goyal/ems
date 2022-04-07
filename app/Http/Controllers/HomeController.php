@@ -33,11 +33,10 @@ class HomeController extends Controller
             if (Auth::user()->admin) {
                 try {
                     $array = [];
-                    $array[0] = User::where("role", "=", "Employee")->count();
-                    $array[1] = User::where("role", "=", "Manager")->count();
+                    $array[0] = User::totalCount("Employee");
+                    $array[1] = User::totalCount("Manager");
                     $array[2] = salary::sum('salary');
-                    $array[3] = Attendance::select(DB::raw('SUM(if(`request`="Pending",1,0)) as Request'))
-                        ->get();
+                    $array[3] = Attendance::requestCount();
                 } catch (\Exception $exception) {
                     return view('error.show');
                 }
@@ -45,8 +44,7 @@ class HomeController extends Controller
             } else {
                 try {
                     if (Auth::user()->role === 'Employee') {
-                        $manager = managerTeam::where('employee_id', Auth::user()->id)
-                            ->first();
+                        $manager = managerTeam::ManagerName();
                         return view('user.home', compact('manager'));
                     } else {
                         return view('user.home');

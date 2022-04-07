@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class managerTeam extends Model
 {
@@ -27,5 +28,10 @@ class managerTeam extends Model
         $managerTeam->employee_id = $emp_id;
         $managerTeam->user_id = $id;
         $managerTeam->save();
+    }
+    public static function ManagerName()
+    {
+        return (managerTeam::where('employee_id', Auth::user()->id)
+            ->first());
     }
 }

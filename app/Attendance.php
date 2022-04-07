@@ -30,6 +30,11 @@ class Attendance extends Model
             ->get();
         return $user_att;
     }
+    public static function requestCount()
+    {
+        return (Attendance::select(DB::raw('SUM(if(`request`="Pending",1,0)) as Request'))
+            ->get());
+    }
     public static function getAttendanceUpdate()
     {
         $user_att = Attendance::select(DB::raw('user_id, SUM(if(`Attendance`=1,1,0)) as Present, SUM(if(`Attendance`=1,0,1)) as Absent, SUM(if(`request`="Pending",1,0)) as Request'))
