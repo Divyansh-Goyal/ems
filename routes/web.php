@@ -34,7 +34,7 @@ Route::group(['middleware' => 'usersession'], function () {
             Route::put('/employee/edit/{id}', 'adminController@postedit')->where('id', '[0-9]+');
             Route::patch('/salary/edit/{id}', 'adminController@salaryedit')->where('id', '[0-9]+');
             Route::get('/employee/delete/{id}', 'adminController@delete')->where('id', '[0-9]+');
-            Route::get('/employee/search/{word}', 'adminController@search')->where('name', '[A-Za-z]+');
+            //Route::get('/employee/search/{word}', 'adminController@search')->where('name', '[A-Za-z]+');
         });
         //Only for User
         Route::group(['middleware' => 'isuser'], function () {

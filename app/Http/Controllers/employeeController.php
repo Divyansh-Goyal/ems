@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Attendance;
+use App\Http\Requests\EditProfileValidation;
 use App\managerTeam;
 use App\User;
 use Attribute;
@@ -47,13 +48,13 @@ class employeeController extends Controller
         }
         return view('user.teamList', compact('users'));
     }
-    public function updateprofile(Request $request)
+    public function updateprofile(EditProfileValidation $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'phone' => 'required|regex:/[0-9]{10}/',
-            'email' => 'required|string|email|max:255',
-        ]);
+        // $this->validate($request, [
+        //     'name' => 'required|string|max:255',
+        //     'phone' => 'required|regex:/[0-9]{10}/',
+        //     'email' => 'required|string|email|max:255',
+        // ]);
         try {
             $id = Auth::user()->id;
             $name = $request->input('name');

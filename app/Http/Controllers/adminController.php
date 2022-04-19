@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Attendance;
+use App\Http\Requests\EditEmployeeValidation;
+use App\Http\Requests\EditProfileValidation;
+use App\Http\Requests\EditSalaryValidation;
+use App\Http\Requests\UpdatePasswordValidation;
 use App\managerTeam;
 use App\salary;
 use App\User;
@@ -104,14 +108,14 @@ class adminController extends Controller
         return view('admin.updatePassword');
     }
 
-    public function postedit(Request $request, $id)
+    public function postedit(EditEmployeeValidation $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'phone' => 'required|regex:/[0-9]{10}/',
-            'role' => 'required|string|max:50',
-            'email' => 'required|string|email|max:255',
-        ]);
+        // $this->validate($request, [
+        //     'name' => 'required|string|max:255',
+        //     'phone' => 'required|regex:/[0-9]{10}/',
+        //     'role' => 'required|string|max:50',
+        //     'email' => 'required|string|email|max:255',
+        // ]);
         try {
 
             $name = $request->input('name');
@@ -143,12 +147,12 @@ class adminController extends Controller
         }
         return back()->with('message', 'Request Rejected');
     }
-    public function salaryedit(Request $request, $id)
+    public function salaryedit(EditSalaryValidation $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'salary' => 'required',
-        ]);
+        // $this->validate($request, [
+        //     'name' => 'required|max:255',
+        //     'salary' => 'required',
+        // ]);
         try {
             $salary =   $request->input('salary');
             $name = $request->input('name');
@@ -159,13 +163,13 @@ class adminController extends Controller
         }
         return redirect()->back();
     }
-    public function updateprofile(Request $request)
+    public function updateprofile(EditProfileValidation $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'phone' => 'required|regex:/[0-9]{10}/',
-            'email' => 'required|string|email|max:255',
-        ]);
+        // $this->validate($request, [
+        //     'name' => 'required|string|max:255',
+        //     'phone' => 'required|regex:/[0-9]{10}/',
+        //     'email' => 'required|string|email|max:255',
+        // ]);
         try {
             $id = Auth::user()->id;
             $name = $request->input('name');
@@ -179,13 +183,13 @@ class adminController extends Controller
         return back()->with('message', 'Updated');
     }
 
-    public function updatePassword(Request $request)
+    public function updatePassword(UpdatePasswordValidation $request)
     {
-        $this->validate($request, [
-            'current_password' => 'required|string|min:8',
-            'password' => 'required|string|min:8|confirmed',
-            'password_confirmation' => 'required',
-        ]);
+        // $this->validate($request, [
+        //     'current_password' => 'required|string|min:8',
+        //     'password' => 'required|string|min:8|confirmed',
+        //     'password_confirmation' => 'required',
+        // ]);
         try {
             if (Hash::check($request->get('current_password'), Auth::user()->password)) {
                 User::updatePassword($request->password);

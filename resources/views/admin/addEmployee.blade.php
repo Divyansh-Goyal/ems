@@ -122,7 +122,8 @@
                                         </div>
 
                                         <div class="form-group {{ $errors->has('salary') ? ' has-error' : '' }}">
-                                            <label for="phone" class="col-md-4 control-label">Annual Salary</label>
+                                            <label for="phone" class="col-md-4 control-label">Annual Salary(In
+                                                Rs)</label>
 
                                             <div class="col-md-10">
                                                 <input id="salary" type="text" class="form-control" name="salary"

@@ -101,7 +101,7 @@
         @if($user_att->previousPageUrl())
         <li class="page-item ">
           <a class="page-link" href="{{$user_att->previousPageUrl()}}">
-            <<< /a>
+            << </a>
         </li>&nbsp;
         @endif
         <li class="page-item">
@@ -122,7 +122,6 @@
   <!-- End of Content Wrapper -->
 
   </div>
-  s
   <!-- End of Page Wrapper -->
 
 
