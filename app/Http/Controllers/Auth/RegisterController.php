@@ -73,22 +73,24 @@ class RegisterController extends Controller
         DB::beginTransaction();
         try {
             if (isset($data['isadmin'])) {
-                $user =  User::create([
-                    'name' => $data['name'],
-                    'phone' => $data['phone'],
-                    'role' => 'Admin',
-                    'email' => $data['email'],
-                    'admin' => 1,
-                    'password' => bcrypt($data['password']),
-                ]);
+                // $user =  User::create([
+                //     'name' => $data['name'],
+                //     'phone' => $data['phone'],
+                //     'role' => 'Admin',
+                //     'email' => $data['email'],
+                //     'admin' => 1,
+                //     'password' => bcrypt($data['password']),
+                // ]);
+                $user = User::insert($data, true);
             } else {
-                $user =  User::create([
-                    'name' => $data['name'],
-                    'phone' => $data['phone'],
-                    'role' => $data['role'],
-                    'email' => $data['email'],
-                    'password' => bcrypt($data['password']),
-                ]);
+                // $user =  User::create([
+                //     'name' => $data['name'],
+                //     'phone' => $data['phone'],
+                //     'role' => $data['role'],
+                //     'email' => $data['email'],
+                //     'password' => bcrypt($data['password']),
+                // ]);
+                $user = User::insert($data, false);
             }
 
             $salary = new salary();

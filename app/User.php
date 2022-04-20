@@ -44,6 +44,23 @@ class User extends Authenticatable
     // public function insert()
     // {
     // }
+    public static function insert($data, $isAdmin)
+    {
+        $user = new User();
+        foreach ($data as $attr => $value) {
+            // TODO: Validate if the provided $attr is a property that can be set in the Object or not.      
+            if (in_array($attr, $user->fillable)) {
+                $user->{$attr} = $value;
+            }
+        }
+        $user->password = bcrypt($data['password']);
+        if ($isAdmin) {
+            $user->admin = 1;
+            $user->role = 'admin';
+        }
+        $user->save();
+        return $user;
+    }
     public static function getAll()
     {
         $users = User::get();
@@ -77,10 +94,6 @@ class User extends Authenticatable
     {
         $user = User::find($id);
         $user->delete();
-    }
-    public static function updateName($id, $name)
-    {
-        User::where('id', '=', $id)->update(['name' => $name]);
     }
     public static function total($id)
     {
