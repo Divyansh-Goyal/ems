@@ -54,13 +54,23 @@ class User extends Authenticatable
         $user = User::find($id);
         return $user;
     }
-    public static function edit($id, $name, $email, $phone, $role)
+    public static function edit($id, array $data)
     {
         $user = User::find($id);
-        $user->name = $name;
-        $user->email = $email;
-        $user->phone = $phone;
-        $user->role = $role;
+        // $user->name = $name;
+        // $user->email = $email;
+        // $user->phone = $phone;
+        // $user->role = $role;
+        // $user->update();
+        if (empty($user)) {
+            return null;
+        }
+        foreach ($data as $attr => $value) {
+            // TODO: Validate if the provided $attr is a property that can be set in the Object or not.      
+            if (in_array($attr, $user->fillable)) {
+                $user->{$attr} = $value;
+            }
+        }
         $user->update();
     }
     public static function remove($id)

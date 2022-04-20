@@ -18,10 +18,10 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    
+
     <link href="Admin/css/sb-admin-2.min.css" rel="stylesheet">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
 </head>
@@ -37,36 +37,43 @@
         <div id="content-wrapper" class="d-flex flex-column">
             @include('user.topbar')
             <!-- Main Content -->
-             <div id="content">
+            <div id="content">
                 <div class="container-fluid ">
                     <div class="row justify-content-center">
                         <div class=" col-md-10 col-md-offset-2 ">
                             <div class="panel panel-default">
-                                <div class="panel-heading"><h2>Todays Attendance<b> {{date("j F Y")}}</b></h2></div>
+                                <div class="panel-heading">
+                                    <h2>Todays Attendance<b> {{date("j F Y")}}</b></h2>
+                                </div>
                                 @if(Session::has('msg'))
-                                <div class="panel-heading"><h3 style="color: crimson">{{Session::get('msg')}}</h3></div>
+                                <div class="panel-heading">
+                                    <h3 style="color: crimson">{{Session::get('msg')}}</h3>
+                                </div>
                                 @endif
                                 <div class="panel-body">
                                     <form class="form-horizontal" method="POST" action="/attendance/update">
                                         {{ csrf_field() }}
                                         <div class="form-group ">
                                             <label for="name" class="col-md-4 control-label">Name</label>
-                
+
                                             <div class="col-md-10">
-                                                <input id="name" type="text" class="form-control" name="name" value="Attendance Request" required readonly>
-            
+                                                <input id="name" type="text" class="form-control" name="name"
+                                                    value="Attendance Request" required readonly>
+
                                             </div>
                                         </div>
-                
-                
+
+
                                         <div class="row">
                                             <div class="col">
-                                              <label for="inTime" class="col-md-4 control-label">In Time</label>
-                                              <input type="time" class="form-control" id="appt" name="in" value="{{date('H:m')}}">
+                                                <label for="inTime" class="col-md-4 control-label">In Time</label>
+                                                <input type="time" class="form-control" id="appt" name="in"
+                                                    value="{{date('H:m')}}">
                                             </div>
                                             <div class="col">
-                                              <label for="inTime" class="col-md-4 control-label">Exit Time</label>
-                                              <input type="time" class="form-control" id="appt" name="out" value="{{date('H:m')}}">
+                                                <label for="inTime" class="col-md-4 control-label">Exit Time</label>
+                                                <input type="time" class="form-control" id="appt" name="out"
+                                                    value="{{date('H:m')}}">
                                             </div>
                                         </div>
 
@@ -84,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-             </div>
+            </div>
             <!--End Main Content -->
             @include('user.footer')
         </div>
@@ -93,8 +100,8 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    
-    
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="Admin/vendor/jquery/jquery.min.js"></script>
     <script src="Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -115,5 +122,3 @@
 </body>
 
 </html>
-
-

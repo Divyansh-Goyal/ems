@@ -117,12 +117,11 @@ class adminController extends Controller
         //     'email' => 'required|string|email|max:255',
         // ]);
         try {
-
-            $name = $request->input('name');
-            $email = $request->input('email');
-            $phone = $request->input('phone');
-            $role = $request->input('role');
-            User::edit($id, $name, $email, $phone, $role);
+            // $name = $request->input('name');
+            // $email = $request->input('email');
+            // $phone = $request->input('phone');
+            // $role = $request->input('role');
+            User::edit($id, $request->all());
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -154,10 +153,11 @@ class adminController extends Controller
         //     'salary' => 'required',
         // ]);
         try {
-            $salary =   $request->input('salary');
-            $name = $request->input('name');
-            User::updateName($id, $name);
-            salary::salaryUpdate($id, $salary);
+            // $salary =   $request->input('salary');
+            // $name = $request->input('name');
+            // User::updateName($id, $name);
+            User::edit($id, $request->all());
+            salary::salaryUpdate($id, $request->all());
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -172,11 +172,12 @@ class adminController extends Controller
         // ]);
         try {
             $id = Auth::user()->id;
-            $name = $request->input('name');
-            $email = $request->input('email');
-            $phone = $request->input('phone');
-            $role = Auth::user()->role;
-            User::edit($id, $name, $email, $phone, $role);
+            // $name = $request->input('name');
+            // $email = $request->input('email');
+            // $phone = $request->input('phone');
+            // $role = Auth::user()->role;
+            // User::edit($id, $name, $email, $phone, $role);
+            User::edit($id, $request->all());
         } catch (\Exception $exception) {
             return view('error.show');
         }

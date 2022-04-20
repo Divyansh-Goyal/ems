@@ -32,6 +32,7 @@ Route::group(['middleware' => 'usersession'], function () {
             Route::patch('/adminprofile/update', 'adminController@updateprofile');
             Route::get('/employee/edit/{id}', 'adminController@getedit')->where('id', '[0-9]+');
             Route::put('/employee/edit/{id}', 'adminController@postedit')->where('id', '[0-9]+');
+            //Route::match(['GET', 'PUT'], '/employee/edit/{id}', 'adminController@getedit')->where('id', '[0-9]+');
             Route::patch('/salary/edit/{id}', 'adminController@salaryedit')->where('id', '[0-9]+');
             Route::get('/employee/delete/{id}', 'adminController@delete')->where('id', '[0-9]+');
             //Route::get('/employee/search/{word}', 'adminController@search')->where('name', '[A-Za-z]+');
