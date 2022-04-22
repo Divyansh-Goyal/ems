@@ -9,16 +9,40 @@ class salary extends Model
     protected $fillable = [
         'salary',
     ];
+
+
+    /**
+     * getAll
+     *
+     * @return void
+     */
     public static function getAll()
     {
         $salary = salary::get();
         return $salary;
     }
+
+
+    /**
+     * getByUserId
+     *
+     * @param  mixed $id
+     * @return void
+     */
     public static function getByUserId($id)
     {
         $salary = salary::where('user_id', '=', $id)->get();
         return $salary;
     }
+
+
+    /**
+     * salaryUpdate
+     *
+     * @param  mixed $id
+     * @param  mixed $data
+     * @return void
+     */
     public static function salaryUpdate($id, $data)
     {
         // salary::where('user_id', '=', $id)

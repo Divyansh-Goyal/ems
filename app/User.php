@@ -41,9 +41,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(managerTeam::class);
     }
-    // public function insert()
-    // {
-    // }
+    /**
+     * insert
+     *
+     * @param  mixed $data
+     * @param  mixed $isAdmin
+     * @return void
+     */
     public static function insert($data, $isAdmin)
     {
         $user = new User();
@@ -59,8 +63,15 @@ class User extends Authenticatable
             $user->role = 'admin';
         }
         $user->save();
-        return $user;
+        //return $user;
     }
+
+
+    /**
+     * getAll
+     *
+     * @return void
+     */
     public static function getAll()
     {
         $users = User::get();
@@ -71,6 +82,14 @@ class User extends Authenticatable
         $user = User::find($id);
         return $user;
     }
+
+    /**
+     * edit
+     *
+     * @param  mixed $id
+     * @param  mixed $data
+     * @return void
+     */
     public static function edit($id, array $data)
     {
         $user = User::find($id);
@@ -90,11 +109,26 @@ class User extends Authenticatable
         }
         $user->update();
     }
+
+
+    /**
+     * remove
+     *
+     * @param  mixed $id
+     * @return void
+     */
     public static function remove($id)
     {
         $user = User::find($id);
         $user->delete();
     }
+
+    /**
+     * total
+     *
+     * @param  mixed $id
+     * @return void
+     */
     public static function total($id)
     {
         $count = User::where('id', $id)
@@ -102,11 +136,26 @@ class User extends Authenticatable
             ->count();
         return $count;
     }
+
+
+    /**
+     * updatePassword
+     *
+     * @param  mixed $password
+     * @return void
+     */
     public static function updatePassword($password)
     {
         user::where('email', Auth::user()->email)
             ->update(['password' => Hash::make($password)]);
     }
+
+    /**
+     * totalCount
+     *
+     * @param  mixed $type
+     * @return void
+     */
     public static function totalCount($type)
     {
         return (User::where("role", "=", $type)->count());
