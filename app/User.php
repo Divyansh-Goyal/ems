@@ -46,7 +46,6 @@ class User extends Authenticatable
      *
      * @param  mixed $data
      * @param  mixed $isAdmin
-     * @return void
      */
     public static function insert($data, $isAdmin)
     {
@@ -63,14 +62,13 @@ class User extends Authenticatable
             $user->role = 'admin';
         }
         $user->save();
-        //return $user;
+        return $user;
     }
 
 
     /**
      * getAll
      *
-     * @return void
      */
     public static function getAll()
     {
@@ -88,7 +86,6 @@ class User extends Authenticatable
      *
      * @param  mixed $id
      * @param  mixed $data
-     * @return void
      */
     public static function edit($id, array $data)
     {
@@ -127,7 +124,7 @@ class User extends Authenticatable
      * total
      *
      * @param  mixed $id
-     * @return void
+     * @return int
      */
     public static function total($id)
     {
@@ -154,7 +151,7 @@ class User extends Authenticatable
      * totalCount
      *
      * @param  mixed $type
-     * @return void
+     * @return int
      */
     public static function totalCount($type)
     {

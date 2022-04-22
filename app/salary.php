@@ -27,7 +27,6 @@ class salary extends Model
      * getByUserId
      *
      * @param  mixed $id
-     * @return void
      */
     public static function getByUserId($id)
     {

@@ -26,7 +26,6 @@ class managerTeam extends Model
      * getEmpID
      *
      * @param  mixed $id
-     * @return void
      */
     public static function getEmpID($id)
     {
@@ -48,11 +47,6 @@ class managerTeam extends Model
         $managerTeam->user_id = $id;
         $managerTeam->save();
     }
-    /**
-     * ManagerName
-     *
-     * @return void
-     */
     public static function ManagerName()
     {
         return (managerTeam::where('employee_id', Auth::user()->id)
