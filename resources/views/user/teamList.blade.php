@@ -20,7 +20,8 @@
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -31,7 +32,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
     </script> --}}
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
 </head>
@@ -48,7 +49,7 @@
             @include('user.topbar')
             <!-- Main Content -->
             <div id="content">
-                
+
                 <table id="teamListTable" class="table table-striped">
                     <div class="table-title">
                         <div class="row">
@@ -57,38 +58,44 @@
                                 <h2><b>{{Auth::user()->name}} Team Members</b></h2>
                             </div>
                             @if(Session::has('msg'))
-                                <div class="panel-heading"><p style="color: crimson">{{Session::get('msg')}}</p></div>
+                            <div class="panel-heading">
+                                <p style="color: crimson">{{Session::get('msg')}}</p>
+                            </div>
                             @endif
                         </div>
                         @if(Session::has('message'))
-                            <div class="panel-heading " style="text-align: center"><h4 style="color: green">{{Session::get('message')}}</h4></div>
+                        <div class="panel-heading " style="text-align: center">
+                            <h4 style="color: green">{{Session::get('message')}}</h4>
+                        </div>
                         @endif
                     </div>
                     <thead>
-                      <tr>
-                        <th scope="col">Employee ID</th>
-                        <th scope="col">Employee Name</th>
-                        <th scope="col">Joining Date</th>
-                      </tr>
+                        <tr>
+                            <th scope="col">Employee ID</th>
+                            <th scope="col">Employee Name</th>
+                            <th scope="col">Joining Date</th>
+                        </tr>
                     </thead>
                     <tbody>
-                      @foreach ($users as $user)
-                      <tr>
-                        <td scope="row" >{{$user->id}}</td>
-                        <td scope="row"  >{{$user->name}}</td>
-                        <td scope="row" >Date: {{$user->created_at->format('d-m')}}</td> 
-                      </tr>
-                      @endforeach
+                        @foreach ($users as $user)
+                        <tr>
+                            <td scope="row">{{$user->id}}</td>
+                            <td scope="row">{{$user->name}}</td>
+                            <td scope="row">Date: {{$user->created_at->format('d-m')}}</td>
+                        </tr>
+                        @endforeach
                     </tbody>
-                  </table>
-                  <div style="padding-left: 2%">
-                  <a href="#"  title="request" type="button"  class="btn btn-success" data-toggle="modal" data-target="#addModal" >Add Member</a>
-                  </div>
-                  <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                </table>
+                <div style="padding-left: 2%">
+                    <a href="#" title="request" type="button" class="btn btn-success" data-toggle="modal"
+                        data-target="#addModal">Add Member</a>
+                </div>
+                <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                
+
                                 <h5 class="modal-title" id="exampleModalLabel">Add Team Member By Id</h5>
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
@@ -97,16 +104,17 @@
                                     {{ csrf_field() }}
                             </div>
                             <div class="modal-body">
-                                
+
                                 <div class="form-group {{ $errors->has('emp_id') ? ' has-error' : '' }}">
                                     <label for="phone" class="col-md-4 control-label">Employee Code</label>
                                     <div class="col-md-10">
-                                        <input id="emp_id" type="text" class="form-control" name="emp_id" value="{{ old('emp_id') }}" required>
-        
+                                        <input id="emp_id" type="text" class="form-control" name="emp_id"
+                                            value="{{ old('emp_id') }}" required>
+
                                         @if ($errors->has('emp_id'))
-                                            <span class="help-block">
-                                                <strong> {{ $errors->first('emp_id') }}</strong>
-                                            </span>
+                                        <span class="help-block">
+                                            <strong> {{ $errors->first('emp_id') }}</strong>
+                                        </span>
                                         @endif
                                     </div>
                                 </div>
@@ -117,14 +125,14 @@
                                     document.getElementById('add-form').submit();">
                                     Add New
                                 </a>
-                                
-                                </form>                 
+
+                                </form>
                             </div>
                         </div>
                     </div>
-                  </div>
+                </div>
             </div>
-                  
+
             <!-- End of Main Content -->
 
             @include('user.footer')
@@ -148,11 +156,12 @@
         });
     </script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-</script> --}}
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script> --}}
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script> 
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js" defer></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"
+        defer></script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="Admin/vendor/jquery/jquery.min.js"></script>

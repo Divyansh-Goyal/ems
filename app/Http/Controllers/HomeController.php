@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Attendance;
+use App\Jobs\SendNoti;
 use App\managerTeam;
 use App\salary;
 use App\User;
@@ -45,6 +46,10 @@ class HomeController extends Controller
                 try {
                     if (Auth::user()->role === 'Employee') {
                         $manager = managerTeam::ManagerName();
+                        $user = Auth::user();
+                        if (empty($manager)) {
+                            SendNoti::dispatch($user);
+                        }
                         return view('user.home', compact('manager'));
                     } else {
                         return view('user.home');

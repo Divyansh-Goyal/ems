@@ -34,6 +34,11 @@
             @include('user.topbar')
             <!-- Main Content -->
             <div id="content">
+                @if(Session::has('message'))
+                <div class="panel-heading " style="text-align: center">
+                    <h4 style="color: red">{{Session::get('message')}}</h4>
+                </div>
+                @endif
                 <div class="row" style="padding-left: 10%">
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-5 col-md-6 mb-4">

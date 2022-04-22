@@ -20,7 +20,8 @@
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -31,7 +32,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
     </script> --}}
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
 </head>
@@ -48,7 +49,7 @@
             @include('admin.topbar')
             <!-- Main Content -->
             <div id="content">
-                
+
                 <table id="attendanceTable" class="table table-striped">
                     <div class="table-title">
                         <div class="row">
@@ -57,37 +58,41 @@
                             </div>
                         </div>
                         @if(Session::has('message'))
-                            <div class="panel-heading " style="text-align: center"><h4 style="color: green">{{Session::get('message')}}</h4></div>
+                        <div class="panel-heading " style="text-align: center">
+                            <h4 style="color: green">{{Session::get('message')}}</h4>
+                        </div>
                         @endif
                     </div>
                     <thead>
-                      <tr>
-                        <th scope="col">Employee ID</th>
-                        <th scope="col">Employee Name</th>
-                        <th scope="col">Request Date</th>
-                        <th scope="col">Shift Hours</th>
-                        <th scope="col">Accept/Reject</th>
+                        <tr>
+                            <th scope="col">Employee ID</th>
+                            <th scope="col">Employee Name</th>
+                            <th scope="col">Request Date</th>
+                            <th scope="col">Shift Hours</th>
+                            <th scope="col">Accept/Reject</th>
 
-                      </tr>
+                        </tr>
                     </thead>
                     <tbody>
-                      @foreach ($user_att as $user)
-                      <tr>
-                        <td scope="row" >{{$user->user_id}}</td>
-                        <td scope="row"  >{{$user->user->name}}</td>
-                        <td scope="row" >Date: {{$user->created_at->format('d-m')}}</td> 
-                        <td scope="row" >{{$user->shift_time}} Hours</td>
-                        <td scope="row">
-                            <a  href="/requestPending/rejected/{{$user->id}}" type="button"  title="request" class="btn btn-danger">Reject</a>
-                            <a href="/requestPending/approved/{{$user->id}}"  title="request" type="button"  class="btn btn-success">Approve</a>
-                        </td>
-                      </tr>
-                      @endforeach
+                        @foreach ($user_att as $user)
+                        <tr>
+                            <td scope="row">{{$user->user_id}}</td>
+                            <td scope="row">{{$user->user->name}}</td>
+                            <td scope="row">Date: {{$user->created_at->format('d-m')}}</td>
+                            <td scope="row">{{$user->shift_time}} Hours</td>
+                            <td scope="row">
+                                <a href="/requestPending/rejected/{{$user->id}}" type="button" title="request"
+                                    class="btn btn-danger">Reject</a>
+                                <a href="/requestPending/approved/{{$user->id}}" title="request" type="button"
+                                    class="btn btn-success">Approve</a>
+                            </td>
+                        </tr>
+                        @endforeach
                     </tbody>
-                  </table>
-                  
+                </table>
+
             </div>
-                  
+
             <!-- End of Main Content -->
 
             @include('admin.footer')
@@ -96,18 +101,19 @@
 
     </div>
     <!-- End of Page Wrapper -->
-    
+
     <script>
         $(document).ready(function(){
             var table = $('#attendanceTable').DataTable();
         });
     </script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-</script> --}}
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script> --}}
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script> 
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js" defer></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"
+        defer></script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="Admin/vendor/jquery/jquery.min.js"></script>

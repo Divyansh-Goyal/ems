@@ -224,22 +224,32 @@ class adminController extends Controller
     // }
 
 
-    //API PART 
+    //Sample API PART with Queries at same place 
     public function listEmployees(Request $request)
     {
         if ($request->id) {
-            $list = User::with('salary')->find($request->id);
+            $list = User::with('salary')
+                ->find($request->id);
         } elseif ($request->joining) {
-            $list = User::with('salary')->where('created_at', '>', strtotime($request->joining))->get();
+            $list = User::with('salary')
+                ->where('created_at', '>', strtotime($request->joining))
+                ->get();
         } elseif ($request->name) {
-            $list = User::with('salary')->where('name', 'like', '%' . $request->name . '%')->get();
+            $list = User::with('salary')
+                ->where('name', 'like', '%' . $request->name . '%')
+                ->get();
         } elseif ($request->from && $request->to) {
-            // $data = User::get();
-            $list = User::with('salary')->whereBetween('salary', [floatval($request->from), floatval($request->to)])->get();
+            $list = DB::table('users')
+                ->join('salaries', 'users.id', '=', 'salaries.user_id')
+                ->whereBetween('salaries.salary', [floatval($request->from), floatval($request->to)])
+                ->get();
+            //$user_ids = Salary::select('user_id')->whereBetween('salary', [floatval($request->from), floatval($request->to)])->get();
+
             //$list = User::with('salary')->whereBetween(salary::select('salary')->where('user_id', '')->get(), [floatval($request->from), floatval($request->to)])->get();
         } else {
             // $list = User::get();
-            $list = User::with('salary')->paginate(15);
+            $list = User::with('salary')
+                ->paginate(15);
         }
         return response()->json([
             'msg' => 'List Fetched',

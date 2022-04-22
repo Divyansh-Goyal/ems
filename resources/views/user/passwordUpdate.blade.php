@@ -37,60 +37,70 @@
                 <div class="row justify-content-center align-items-center">
                     <div class="col-md-8 col-md-offset-2">
                         @if(Session::has('message'))
-                            <div class="panel-heading " style="text-align: center"><h3 style="color: green">{{Session::get('message')}}</h3></div>
+                        <div class="panel-heading " style="text-align: center">
+                            <h3 style="color: green">{{Session::get('message')}}</h3>
+                        </div>
                         @endif
                         <div class="panel panel-default">
-                            <div class="panel-heading"><h2><strong>Reset Password</strong></h2></div>
-                            
+                            <div class="panel-heading">
+                                <h2><strong>Reset Password</strong></h2>
+                            </div>
+
                             <div class="panel-body">
                                 <form class="form-horizontal" method="POST" action="{{ url('/update/password') }}">
                                     {{ csrf_field() }}
                                     {{method_field('PATCH')}}
-            
-            
+
+
                                     <div class="form-group{{ $errors->has('current_password') ? ' has-error' : '' }}">
-                                        <label for="current_password" class="col-md-4 control-label">Current Password</label>
-            
+                                        <label for="current_password" class="col-md-4 control-label">Current
+                                            Password</label>
+
                                         <div class="col-md-6">
                                             @if(Session::has('msg'))
                                             <span class="help-block">
-                                                <strong>{{ Session::get('msg')  }}</strong>
+                                                <strong>{{ Session::get('msg') }}</strong>
                                             </span>
                                             @endif
-                                            <input id="current_password" type="password" class="form-control" name="current_password" required>
-                                            
+                                            <input id="current_password" type="password" class="form-control"
+                                                name="current_password" required>
+
                                             @if ($errors->has('current_password'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('current_password') }}</strong>
-                                                </span>
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('current_password') }}</strong>
+                                            </span>
                                             @endif
                                         </div>
                                     </div>
-            
+
                                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                         <label for="password" class="col-md-4 control-label">New Password</label>
-            
+
                                         <div class="col-md-6">
-                                            <input id="password" type="password" class="form-control" name="password" required>
-            
+                                            <input id="password" type="password" class="form-control" name="password"
+                                                required>
+
                                             @if ($errors->has('password'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('password') }}</strong>
-                                                </span>
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
                                             @endif
                                         </div>
                                     </div>
-            
+
                                     <div class="form-group ">
-                                        <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                                        <label for="password-confirm" class="col-md-4 control-label">Confirm
+                                            Password</label>
                                         <div class="col-md-6">
-                                            <input type="password" id="password-confirm" class="form-control" name="password_confirmation" required autofocus>
+                                            <input type="password" id="password-confirm" class="form-control"
+                                                name="password_confirmation" required autofocus>
                                             @if ($errors->has('password_confirmation'))
-                                                <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
+                                            <span class="text-danger">{{ $errors->first('password_confirmation')
+                                                }}</span>
                                             @endif
                                         </div>
                                     </div>
-            
+
                                     <div class="form-group">
                                         <div class="col-md-6 col-md-offset-4">
                                             <button type="submit" class="btn btn-primary">
@@ -114,7 +124,7 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    
+
 
 
     <!-- Bootstrap core JavaScript-->

@@ -18,10 +18,10 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    
+
     <link href="Admin/css/sb-admin-2.min.css" rel="stylesheet">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
 </head>
@@ -37,29 +37,34 @@
         <div id="content-wrapper" class="d-flex flex-column">
             @include('user.topbar')
             <!-- Main Content -->
-             <div id="content">
-                 <div style="text-align: center">
-                    <h2 class="fw-bold" >Salary Details</h2>
-                 </div>
-                
+            <div id="content">
+                <div style="text-align: center">
+                    <h2 class="fw-bold">Salary Details</h2>
+                </div>
+
                 <div class="container mt-5 mb-5">
                     <?php $salary = Auth::user()->salary->salary ?>
                     <div class="row">
-                        <div class="col-md-12" >
-                            <div class="d-flex justify-content-end"> <span>Employee Role:Currently {{Auth::User()->role}}</span> </div>
+                        <div class="col-md-12">
+                            <div class="d-flex justify-content-end"> <span>Employee Role:Currently
+                                    {{Auth::User()->role}}</span> </div>
                             <div class="row">
                                 <div class="col-md-10">
                                     <div class="row">
                                         <div class="col-md-8">
-                                            <div> <span class="fw-bolder">EMP Code :</span> <small class="ms-3">{{Auth::User()->id}}</small> </div>
+                                            <div> <span class="fw-bolder">EMP Code :</span> <small
+                                                    class="ms-3">{{Auth::User()->id}}</small> </div>
                                         </div>
                                         <div class="col-md-8">
-                                            <div> <span class="fw-bolder">Joining Date :</span> <small class="ms-3">{{Auth::User()->created_at->format('Y-m-d')}}</small> </div>
+                                            <div> <span class="fw-bolder">Joining Date :</span> <small
+                                                    class="ms-3">{{Auth::User()->created_at->format('Y-m-d')}}</small>
+                                            </div>
                                         </div>
                                         <div class="col-md-8">
-                                            <div> <span class="fw-bolder">EMP Name :</span> <small class="ms-3">{{Auth::User()->name}}</small> </div>
+                                            <div> <span class="fw-bolder">EMP Name :</span> <small
+                                                    class="ms-3">{{Auth::User()->name}}</small> </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
                                 <table class="mt-4 table table-bordered">
                                     <thead class="bg-dark text-white">
@@ -122,7 +127,7 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <!--End Main Content -->
             @include('user.footer')
         </div>
@@ -131,8 +136,8 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    
-    
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="Admin/vendor/jquery/jquery.min.js"></script>
     <script src="Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -153,5 +158,3 @@
 </body>
 
 </html>
-
-
