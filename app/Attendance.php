@@ -46,7 +46,7 @@ class Attendance extends Model
     public static function getAttendancebetween($from, $to)
     {
         $user_att = Attendance::select(DB::raw('user_id, SUM(if(`Attendance`=1,1,0)) as Present, SUM(if(`Attendance`=1,0,1)) as Absent, SUM(if(`request`="Pending",1,0)) as Request'))
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('created_at', [$to, $from])
             ->groupBy('user_id')
             ->paginate(5);
         return $user_att;

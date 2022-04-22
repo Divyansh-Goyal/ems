@@ -34,7 +34,7 @@
     </li>
 
     <li class="nav-item active">
-        <a class="nav-link" href="{{ url('/addEmployee') }}">
+        <a class="nav-link" href="{{ url('/employee') }}">
             <i class="fas fa-fw fa-american-sign-language-interpreting"></i>
             <span>Add Employee</span></a>
     </li>
