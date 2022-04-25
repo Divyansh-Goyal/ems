@@ -227,12 +227,16 @@ class adminController extends Controller
     //Sample API PART with Queries at same place 
     public function listEmployees(Request $request)
     {
+        $page = 1;
+        if ($request->page) {
+            $page = $request->page;
+        }
         if ($request->id) {
             $list = User::with('salary')
                 ->find($request->id);
         } elseif ($request->joining) {
             $list = User::with('salary')
-                ->where('created_at', '>', strtotime($request->joining))
+                ->where('created_at', '>',  date('Y-m-d', strtotime($request->joining)))
                 ->get();
         } elseif ($request->name) {
             $list = User::with('salary')
@@ -248,8 +252,8 @@ class adminController extends Controller
             //$list = User::with('salary')->whereBetween(salary::select('salary')->where('user_id', '')->get(), [floatval($request->from), floatval($request->to)])->get();
         } else {
             // $list = User::get();
-            $list = User::with('salary')
-                ->paginate(15);
+            $list = User::with('salary')->offset(($page - 1) * 10)->limit(10)
+                ->get();
         }
         return response()->json([
             'msg' => 'List Fetched',
