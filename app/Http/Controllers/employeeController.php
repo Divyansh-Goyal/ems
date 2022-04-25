@@ -13,30 +13,30 @@ use Illuminate\Support\Facades\Auth;
 
 class employeeController extends Controller
 {
-    public function getsalary()
+    public function showSalary()
     {
         return view('user.salaryDetail');
     }
-    public function getattendance()
+    public function showAttendance()
     {
         return view('user.attendance');
     }
-    public function getProfile()
+    public function showProfile()
     {
         return view('user.profile');
     }
-    public function getpassword()
+    public function showPassword()
     {
         return view('user.passwordUpdate');
     }
-    public function getTeamList()
+    public function showTeamList()
     {
         try {
             if (Auth::user()->role == 'Manager') {
                 $id = Auth::user()->id;
                 $team_ids = managerTeam::getEmpId($id);
                 $id = [];
-                foreach ($team_ids as $teamId) {
+                foreach ($team_ids  as $teamId) {
                     array_push($id, $teamId->employee_id);
                 }
                 $users = User::whereIn("id", $id)->get();
@@ -61,7 +61,7 @@ class employeeController extends Controller
             // $email = $request->input('email');
             // $phone = $request->input('phone');
             // $role = Auth::user()->role;
-            User::edit($id, $request->all());
+            User::edit($id, $request->all);
         } catch (\Exception $exception) {
             return view('error.show');
         }

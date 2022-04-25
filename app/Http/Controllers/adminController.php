@@ -24,11 +24,11 @@ use Illuminate\Support\Facades\Validator;
 
 class adminController extends Controller
 {
-    public function getAdd()
+    public function showAdd()
     {
         return view('admin.addEmployee');
     }
-    public function list()
+    public function showlist()
     {
         try {
 
@@ -43,7 +43,7 @@ class adminController extends Controller
     }
 
 
-    public function getsalary()
+    public function showsalary()
     {
         try {
             $users = User::getAll();
@@ -55,7 +55,7 @@ class adminController extends Controller
         }
         return view('admin.salaryDetail', compact('users'));
     }
-    public function getAttendace(Request $request)
+    public function showAttendace(Request $request)
     {
         try {
             $from = $request['from'] ?? "";
@@ -74,7 +74,7 @@ class adminController extends Controller
         return view('admin.attendanceDetail', compact('user_att', 'from', 'to'));
     }
 
-    public function getPendingRequest()
+    public function showPendingRequest()
     {
         try {
             $user_att = Attendance::PendingRequest();
@@ -86,7 +86,7 @@ class adminController extends Controller
         }
         return view('admin.attendanceRequest', compact('user_att'));
     }
-    public function getEdit($id)
+    public function showEdit($id)
     {
         try {
             $user = User::getById($id);
@@ -99,16 +99,16 @@ class adminController extends Controller
         return view('admin.editEmp', compact('user'));
     }
 
-    public function getProfile()
+    public function showProfile()
     {
         return view('admin.profile');
     }
-    public function getPassword()
+    public function showPassword()
     {
         return view('admin.updatePassword');
     }
 
-    public function postedit(EditEmployeeValidation $request, $id)
+    public function edit(EditEmployeeValidation $request, $id)
     {
         // $this->validate($request, [
         //     'name' => 'required|string|max:255',
