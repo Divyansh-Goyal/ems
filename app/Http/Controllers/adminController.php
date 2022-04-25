@@ -28,7 +28,7 @@ class adminController extends Controller
     {
         return view('admin.addEmployee');
     }
-    public function index()
+    public function list()
     {
         try {
 

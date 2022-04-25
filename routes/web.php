@@ -25,15 +25,15 @@ Route::group(['middleware' => 'usersession'], function () {
         //Only for Admin
         Route::group(['middleware' => 'isadmin'], function () {
             Route::get('/employee', 'adminController@getAdd');
-            Route::get('/employees', 'adminController@index');
+            Route::get('/employees', 'adminController@list');
 
             Route::get('/empAttendance', 'adminController@getAttendace');
 
             Route::get('/empSalary', 'adminController@getsalary');
             Route::patch('/salary/edit/{id}', 'adminController@salaryedit')->where('id', '[0-9]+');
 
-            Route::get('/adminprofile', 'adminController@getProfile');
-            Route::patch('/adminprofile/update', 'adminController@updateprofile');
+            Route::get('/profile', 'adminController@getProfile');
+            Route::patch('/profile/update', 'adminController@updateprofile');
 
             Route::get('/passwordChange', 'adminController@getPassword');
 
