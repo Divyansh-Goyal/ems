@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class salary extends Model
+class Salary extends Model
 {
     protected $fillable = [
         'salary',
@@ -18,8 +18,7 @@ class salary extends Model
      */
     public static function getAll()
     {
-        $salary = salary::get();
-        return $salary;
+        return salary::get();
     }
 
 
@@ -30,8 +29,10 @@ class salary extends Model
      */
     public static function getByUserId($id)
     {
-        $salary = salary::where('user_id', '=', $id)->get();
-        return $salary;
+        if (empty($id)) {
+            return null;
+        }
+        return salary::where('user_id', '=', $id)->get();
     }
 
 
@@ -44,6 +45,9 @@ class salary extends Model
      */
     public static function salaryUpdate($id, $data)
     {
+        if (empty($id) || empty($data)) {
+            return null;
+        }
         // salary::where('user_id', '=', $id)
         //     ->update(['salary' => $salary]);
 

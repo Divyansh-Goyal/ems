@@ -7,8 +7,8 @@ use App\Http\Requests\EditEmployeeValidation;
 use App\Http\Requests\EditProfileValidation;
 use App\Http\Requests\EditSalaryValidation;
 use App\Http\Requests\UpdatePasswordValidation;
-use App\managerTeam;
-use App\salary;
+use App\ManagerTeam;
+use App\Salary;
 use App\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Contracts\Validation\Validator as ValidationValidator;
@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Validator;
 
 class adminController extends Controller
 {
+    protected $isPresent;
     public function showAdd()
     {
         return view('admin.addEmployee');
@@ -57,9 +58,13 @@ class adminController extends Controller
     }
     public function showAttendace(Request $request)
     {
+        // $from = $request['from'] ?? "";
+        // $to = $request['to'] ?? "";
+
+        $from = $request->input('from', "");
+        $to = $request->input('to', "");
         try {
-            $from = $request['from'] ?? "";
-            $to = $request['to'] ?? "";
+
             if ($from != "" && $to != "") {
                 $user_att = Attendance::getAttendancebetween($from, $to);
             } else {
@@ -88,6 +93,10 @@ class adminController extends Controller
     }
     public function showEdit($id)
     {
+
+        if (empty($id)) {
+            return redirect()->back();
+        }
         try {
             $user = User::getById($id);
             if (!$user) {
@@ -116,6 +125,9 @@ class adminController extends Controller
         //     'role' => 'required|string|max:50',
         //     'email' => 'required|string|email|max:255',
         // ]);
+        if (empty($id)) {
+            return redirect()->back();
+        }
         try {
             // $name = $request->input('name');
             // $email = $request->input('email');
@@ -130,8 +142,12 @@ class adminController extends Controller
 
     public function requestApproved($id)
     {
+        if (empty($id)) {
+            return redirect()->back();
+        }
         try {
-            Attendance::attendanceRequest($id, 1);
+            $this->isPresent = 1;
+            Attendance::attendanceRequest($id, $this->isPresent);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -139,8 +155,12 @@ class adminController extends Controller
     }
     public function requestRejected($id)
     {
+        if (empty($id)) {
+            return redirect()->back();
+        }
         try {
-            Attendance::attendanceRequest($id, 0);
+            $this->isPresent = 1;
+            Attendance::attendanceRequest($id, $this->isPresent);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -152,12 +172,15 @@ class adminController extends Controller
         //     'name' => 'required|max:255',
         //     'salary' => 'required',
         // ]);
+        if (empty($id)) {
+            return redirect()->back();
+        }
         try {
             // $salary =   $request->input('salary');
             // $name = $request->input('name');
             // User::updateName($id, $name);
             User::edit($id, $request->all());
-            salary::salaryUpdate($id, $request->all());
+            Salary::salaryUpdate($id, $request->all());
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -204,8 +227,11 @@ class adminController extends Controller
     }
     public function delete($id)
     {
+        if (empty($id)) {
+            return redirect()->back();
+        }
         try {
-            managerTeam::deleteByEmpID($id);
+            ManagerTeam::deleteByEmpID($id);
             user::remove($id);
         } catch (\Exception $exception) {
             return view('error.show');

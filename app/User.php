@@ -49,6 +49,9 @@ class User extends Authenticatable
      */
     public static function insert($data, $isAdmin)
     {
+        if (empty($data) || empty($isAdmin)) {
+            return null;
+        }
         $user = new User();
         foreach ($data as $attr => $value) {
             // TODO: Validate if the provided $attr is a property that can be set in the Object or not.      
@@ -72,13 +75,11 @@ class User extends Authenticatable
      */
     public static function getAll()
     {
-        $users = User::get();
-        return $users;
+        return User::get();
     }
     public static function getById($id)
     {
-        $user = User::find($id);
-        return $user;
+        return User::find($id);
     }
 
     /**
@@ -89,6 +90,9 @@ class User extends Authenticatable
      */
     public static function edit($id, array $data)
     {
+        if (empty($data) || empty($id)) {
+            return null;
+        }
         $user = User::find($id);
         // $user->name = $name;
         // $user->email = $email;
@@ -116,6 +120,9 @@ class User extends Authenticatable
      */
     public static function remove($id)
     {
+        if (empty($id)) {
+            return null;
+        }
         $user = User::find($id);
         $user->delete();
     }
@@ -128,10 +135,12 @@ class User extends Authenticatable
      */
     public static function total($id)
     {
-        $count = User::where('id', $id)
+        if (empty($id)) {
+            return 0;
+        }
+        return User::where('id', $id)
             ->where('role', 'Employee')
-            ->count();
-        return $count;
+            ->count();;
     }
 
 
@@ -143,6 +152,9 @@ class User extends Authenticatable
      */
     public static function updatePassword($password)
     {
+        if (empty($password)) {
+            return null;
+        }
         user::where('email', Auth::user()->email)
             ->update(['password' => Hash::make($password)]);
     }
@@ -155,6 +167,9 @@ class User extends Authenticatable
      */
     public static function totalCount($type)
     {
+        if (empty($type)) {
+            return 0;
+        }
         return (User::where("role", "=", $type)->count());
     }
 }

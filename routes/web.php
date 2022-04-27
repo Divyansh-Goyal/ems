@@ -27,16 +27,17 @@ Route::group(['middleware' => 'usersession'], function () {
             Route::get('/employee', 'adminController@showAdd');
             Route::get('/employees', 'adminController@showlist');
 
-            Route::get('/empAttendance', 'adminController@showAttendace');
 
             Route::get('/empSalary', 'adminController@showsalary');
             Route::patch('/salary/edit/{id}', 'adminController@salaryedit')->where('id', '[0-9]+');
 
-            Route::get('/profile', 'adminController@showProfile');
-            Route::patch('/profile/update', 'adminController@updateprofile');
+            Route::get('/adminprofile', 'adminController@showProfile');
+            Route::patch('/update', 'adminController@updateprofile');
 
             Route::get('/passwordChange', 'adminController@showPassword');
 
+
+            Route::get('/empAttendance', 'adminController@showAttendace');
             Route::get('/requestPending', 'adminController@showPendingRequest');
             Route::get('/requestPending/rejected/{id}', 'adminController@requestRejected')->where('id', '[0-9]+');
             Route::get('/requestPending/approved/{id}', 'adminController@requestApproved')->where('id', '[0-9]+');

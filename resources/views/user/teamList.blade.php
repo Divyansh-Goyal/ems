@@ -49,7 +49,6 @@
             @include('user.topbar')
             <!-- Main Content -->
             <div id="content">
-
                 <table id="teamListTable" class="table table-striped">
                     <div class="table-title">
                         <div class="row">

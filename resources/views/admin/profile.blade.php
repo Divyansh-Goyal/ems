@@ -45,7 +45,7 @@
                                 </div>
                                 @endif
                                 <div class="panel-body">
-                                    <form class="form-horizontal" method="POST" action="/profile/update">
+                                    <form class="form-horizontal" method="POST" action="/update">
                                         {{ csrf_field() }}
                                         {{method_field('PATCH')}}
 

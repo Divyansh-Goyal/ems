@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class managerTeam extends Model
+class ManagerTeam extends Model
 {
     public function user()
     {
@@ -19,6 +19,9 @@ class managerTeam extends Model
      */
     public static function deleteByEmpID($id)
     {
+        if (empty($id)) {
+            return null;
+        }
         managerTeam::where('employee_id', $id)
             ->delete();
     }
@@ -29,9 +32,11 @@ class managerTeam extends Model
      */
     public static function getEmpID($id)
     {
-        $emp_id = managerTeam::select('employee_id')
-            ->where('user_id', $id)->get();
-        return $emp_id;
+        if (empty($id)) {
+            return null;
+        }
+        return  managerTeam::select('employee_id')
+            ->where('user_id', $id)->get();;
     }
     /**
      * addTeamMember
@@ -42,6 +47,9 @@ class managerTeam extends Model
      */
     public static function addTeamMember($id, $emp_id)
     {
+        if (empty($id) || empty($emp_id)) {
+            return null;
+        }
         $managerTeam = new managerTeam();
         $managerTeam->employee_id = $emp_id;
         $managerTeam->user_id = $id;

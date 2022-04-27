@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Attendance;
 use App\Http\Requests\EditProfileValidation;
-use App\managerTeam;
+use App\ManagerTeam;
 use App\User;
 use Attribute;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -34,7 +34,7 @@ class employeeController extends Controller
         try {
             if (Auth::user()->role == 'Manager') {
                 $id = Auth::user()->id;
-                $team_ids = managerTeam::getEmpId($id);
+                $team_ids = ManagerTeam::getEmpId($id);
                 $id = [];
                 foreach ($team_ids  as $teamId) {
                     array_push($id, $teamId->employee_id);
