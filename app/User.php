@@ -49,7 +49,7 @@ class User extends Authenticatable
      */
     public static function insert($data, $isAdmin)
     {
-        if (empty($data) || empty($isAdmin)) {
+        if (empty($data)) {
             return null;
         }
         $user = new User();

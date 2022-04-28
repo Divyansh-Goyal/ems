@@ -25,7 +25,7 @@ class EditSalaryValidation extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'salary' => 'required',
+            'salary' => 'required|regex:/^\d+(\.\d{1,2})?$/',
         ];
     }
 }

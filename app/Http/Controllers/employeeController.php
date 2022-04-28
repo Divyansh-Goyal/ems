@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 
 class employeeController extends Controller
 {
+
+
     public function showSalary()
     {
         return view('user.salaryDetail');
@@ -74,7 +76,11 @@ class employeeController extends Controller
             'emp_id' => 'required|numeric',
         ]);
         try {
-            $count = User::total($request->id);
+            $AlreadyExist = ManagerTeam::where('employee_id', $request->emp_id)->count();
+            if ($AlreadyExist > 0) {
+                return back()->with('msg', 'Already Manager Assign');
+            }
+            $count = User::total($request->emp_id);
             if ($count > 0) {
                 $user = Auth::user();
                 $emp_id = $request->emp_id;

@@ -31,7 +31,7 @@ class RegisterController extends Controller
      * @var string
      */
     private $user = "";
-    protected $redirectTo = '/addEmployee';
+    protected $redirectTo = '/employee';
 
     /**
      * Create a new controller instance.
@@ -57,8 +57,8 @@ class RegisterController extends Controller
             'phone' => 'required|regex:/[0-9]{10}/',
             'role' => 'required|string|max:50',
             'email' => 'required|string|email|max:255|unique:users',
-            'salary' => 'required|string',
-            'password' => 'required|string|min:8|confirmed',
+            'salary' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'password' => 'required|string|min:8|confirmed|max:255',
         ]);
     }
 

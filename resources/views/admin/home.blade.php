@@ -86,7 +86,7 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <a href="{{ url('/empSalary') }}">
+                                        <a href="{{ url('/employees-salary') }}">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total
                                                 Salary
                                                 Distribution
