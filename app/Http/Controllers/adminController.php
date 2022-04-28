@@ -133,7 +133,7 @@ class adminController extends Controller
             // $email = $request->input('email');
             // $phone = $request->input('phone');
             // $role = $request->input('role');
-            User::edit($id, $request->all());
+            $UserEdit = User::edit($id, $request->all());
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -147,7 +147,7 @@ class adminController extends Controller
         }
         try {
             $this->isPresent = 1;
-            Attendance::attendanceRequest($id, $this->isPresent);
+            $AttendanceApproved = Attendance::attendanceRequest($id, $this->isPresent);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -160,7 +160,7 @@ class adminController extends Controller
         }
         try {
             $this->isPresent = 0;
-            Attendance::attendanceRequest($id, $this->isPresent);
+            $AttendanceRejected = Attendance::attendanceRequest($id, $this->isPresent);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -179,8 +179,8 @@ class adminController extends Controller
             // $salary =   $request->input('salary');
             // $name = $request->input('name');
             // User::updateName($id, $name);
-            User::edit($id, $request->all());
-            Salary::salaryUpdate($id, $request->all());
+            $UserEdit = User::edit($id, $request->all());
+            $SalaryEdit = Salary::salaryUpdate($id, $request->all());
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -200,7 +200,7 @@ class adminController extends Controller
             // $phone = $request->input('phone');
             // $role = Auth::user()->role;
             // User::edit($id, $name, $email, $phone, $role);
-            User::edit($id, $request->all());
+            $UserEdit = User::edit($id, $request->all());
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -216,7 +216,7 @@ class adminController extends Controller
         // ]);
         try {
             if (Hash::check($request->get('current_password'), Auth::user()->password)) {
-                User::updatePassword($request->password);
+                $UserPasswordUpdate = User::updatePassword($request->password);
             } else {
                 return back()->with('msg', 'Current Password Do not Match');
             }
@@ -231,8 +231,8 @@ class adminController extends Controller
             return redirect()->back();
         }
         try {
-            ManagerTeam::deleteByEmpID($id);
-            user::remove($id);
+            $MenberDelete = ManagerTeam::deleteByEmpID($id);
+            $UserDelete = user::remove($id);
         } catch (\Exception $exception) {
             return view('error.show');
         }

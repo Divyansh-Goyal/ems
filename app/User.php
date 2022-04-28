@@ -108,7 +108,7 @@ class User extends Authenticatable
                 $user->{$attr} = $value;
             }
         }
-        $user->update();
+        return $user->update();
     }
 
 
@@ -124,7 +124,7 @@ class User extends Authenticatable
             return null;
         }
         $user = User::find($id);
-        $user->delete();
+        return $user->delete();
     }
 
     /**
@@ -155,7 +155,7 @@ class User extends Authenticatable
         if (empty($password)) {
             return null;
         }
-        user::where('email', Auth::user()->email)
+        return user::where('email', Auth::user()->email)
             ->update(['password' => Hash::make($password)]);
     }
 

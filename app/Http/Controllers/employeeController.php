@@ -63,7 +63,7 @@ class employeeController extends Controller
             // $email = $request->input('email');
             // $phone = $request->input('phone');
             // $role = Auth::user()->role;
-            User::edit($id, $request->all);
+            $UserEdit = User::edit($id, $request->all);
         } catch (\Exception $exception) {
             return view('error.show');
         }

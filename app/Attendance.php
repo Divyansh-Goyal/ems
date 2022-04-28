@@ -11,6 +11,7 @@ class Attendance extends Model
     protected $PresentApproved = 'Approved';
     protected $PresentRejected = 'Rejected';
     protected $PresentPending = 'Pending';
+    protected  $pagination = 5;
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -28,8 +29,7 @@ class Attendance extends Model
         if (empty($id)) {
             return null;
         }
-        $attendance = Attendance::find($id);
-        return $attendance;
+        return  Attendance::find($id);
     }
 
 
@@ -52,7 +52,7 @@ class Attendance extends Model
         }
         $attendance->request = $attendance->PresentRejected;
         $attendance->attendance = $isPresent;
-        $attendance->update();
+        return $attendance->update();
     }
 
 
