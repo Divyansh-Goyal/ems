@@ -159,7 +159,7 @@ class adminController extends Controller
             return redirect()->back();
         }
         try {
-            $this->isPresent = 1;
+            $this->isPresent = 0;
             Attendance::attendanceRequest($id, $this->isPresent);
         } catch (\Exception $exception) {
             return view('error.show');
