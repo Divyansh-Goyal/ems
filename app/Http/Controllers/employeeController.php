@@ -76,7 +76,7 @@ class employeeController extends Controller
             'emp_id' => 'required|numeric',
         ]);
         try {
-            $AlreadyExist = ManagerTeam::where('employee_id', $request->emp_id)->count();
+            $AlreadyExist = ManagerTeam::alreadyReady($request->emp_id);
             if ($AlreadyExist > 0) {
                 return back()->with('msg', 'Already Manager Assign');
             }
