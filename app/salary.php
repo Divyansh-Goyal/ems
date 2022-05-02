@@ -41,12 +41,12 @@ class Salary extends Model
      *
      * @param  mixed $id
      * @param  mixed $data
-     * @return void
+     * @return bool
      */
     public static function salaryUpdate($id, $data)
     {
         if (empty($id) || empty($data)) {
-            return null;
+            return false;
         }
         // salary::where('user_id', '=', $id)
         //     ->update(['salary' => $salary]);
@@ -58,7 +58,7 @@ class Salary extends Model
         // $user->role = $role;
         // $user->update();
         if (empty($salary)) {
-            return null;
+            return false;
         }
         foreach ($data as $attr => $value) {
             // TODO: Validate if the provided $attr is a property that can be set in the Object or not.      
@@ -66,6 +66,6 @@ class Salary extends Model
                 $salary->{$attr} = $value;
             }
         }
-        $salary->update();
+        return $salary->update();
     }
 }

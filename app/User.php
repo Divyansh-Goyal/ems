@@ -116,12 +116,12 @@ class User extends Authenticatable
      * remove
      *
      * @param  mixed $id
-     * @return void
+     * @return bool
      */
     public static function remove($id)
     {
         if (empty($id)) {
-            return null;
+            return false;
         }
         $user = User::find($id);
         return $user->delete();
@@ -148,12 +148,12 @@ class User extends Authenticatable
      * updatePassword
      *
      * @param  mixed $password
-     * @return void
+     * @return bool
      */
     public static function updatePassword($password)
     {
         if (empty($password)) {
-            return null;
+            return false;
         }
         return user::where('email', Auth::user()->email)
             ->update(['password' => Hash::make($password)]);

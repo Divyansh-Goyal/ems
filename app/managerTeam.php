@@ -58,7 +58,7 @@ class ManagerTeam extends Model
     public static function alreadyReady($employee_id)
     {
         if (empty($employee_id)) {
-            return null;
+            return false;
         }
         return ManagerTeam::where('employee_id', $employee_id)->count();
     }

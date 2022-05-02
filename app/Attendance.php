@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class Attendance extends Model
 {
-    protected $PresentApproved = 'Approved';
-    protected $PresentRejected = 'Rejected';
-    protected $PresentPending = 'Pending';
-    protected  $pagination = 5;
+    protected static $presentApproved = 'Approved';
+    protected static $PresentRejected = 'Rejected';
+    protected static $PresentPending = 'Pending';
+    protected static $pagination = 5;
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -39,18 +39,18 @@ class Attendance extends Model
      *
      * @param  mixed $id
      * @param  mixed $x
-     * @return void
+     * @return bool
      */
     public static function attendanceRequest(int $id, int $isPresent)
     {
         if (empty($id)) {
-            return null;
+            return false;
         }
         $attendance = Attendance::find($id);
         if ($isPresent) {
-            $attendance->request = $attendance->PresentApproved;;
+            $attendance->request = self::$presentApproved;
         }
-        $attendance->request = $attendance->PresentRejected;
+        $attendance->request = self::$PresentRejected;
         $attendance->attendance = $isPresent;
         return $attendance->update();
     }
@@ -64,7 +64,7 @@ class Attendance extends Model
     public static function PendingRequest()
     {
 
-        return  Attendance::where('request', 'Pending')
+        return  Attendance::where('request', self::$PresentPending)
             ->get();
     }
 
@@ -81,6 +81,7 @@ class Attendance extends Model
     }
 
 
+
     /**
      * getAttendanceUpdate
      *
@@ -90,7 +91,7 @@ class Attendance extends Model
     {
         return Attendance::select(DB::raw('user_id, SUM(if(`Attendance`=1,1,0)) as Present, SUM(if(`Attendance`=1,0,1)) as Absent, SUM(if(`request`="Pending",1,0)) as Request'))
             ->groupBy('user_id')
-            ->paginate(5);
+            ->paginate(self::$pagination);
     }
 
     /**
@@ -108,7 +109,7 @@ class Attendance extends Model
         return Attendance::select(DB::raw('user_id, SUM(if(`Attendance`=1,1,0)) as Present, SUM(if(`Attendance`=1,0,1)) as Absent, SUM(if(`request`="Pending",1,0)) as Request'))
             ->whereBetween('created_at', [$from, $to])
             ->groupBy('user_id')
-            ->paginate(5);
+            ->paginate(self::$pagination);
     }
 
 
@@ -116,12 +117,12 @@ class Attendance extends Model
      * total
      *
      * @param  mixed $id
-     * @return void
+     * @return int
      */
     public static function total($id)
     {
         if (empty($id)) {
-            return null;
+            return 0;
         }
         return  Attendance::select('created_at')
             ->where('user_id', $id)
@@ -134,18 +135,18 @@ class Attendance extends Model
      *
      * @param  mixed $id
      * @param  mixed $shift_time
-     * @return void
+     * @return bool
      */
     public static function addRequest($id, $shift_time)
     {
         if (empty($id) || empty($shift_time)) {
-            return null;
+            return false;
         }
         $attendance = new Attendance();
         $attendance->user_id = $id;
         $attendance->request = $attendance->PresentPending;
         $attendance->shift_time = $shift_time;
         $attendance->Attendance = 0;
-        $attendance->save();
+        return $attendance->save();
     }
 }

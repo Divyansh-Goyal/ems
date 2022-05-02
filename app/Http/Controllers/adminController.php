@@ -24,7 +24,8 @@ use Illuminate\Support\Facades\Validator;
 
 class adminController extends Controller
 {
-    protected $isPresent;
+    protected $Present = 1;
+    protected $Absent = 0;
     public function showAdd()
     {
         return view('admin.addEmployee');
@@ -146,8 +147,8 @@ class adminController extends Controller
             return redirect()->back();
         }
         try {
-            $this->isPresent = 1;
-            $AttendanceApproved = Attendance::attendanceRequest($id, $this->isPresent);
+
+            $AttendanceApproved = Attendance::attendanceRequest($id, $this->Present);
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -159,8 +160,8 @@ class adminController extends Controller
             return redirect()->back();
         }
         try {
-            $this->isPresent = 0;
-            $AttendanceRejected = Attendance::attendanceRequest($id, $this->isPresent);
+
+            $AttendanceRejected = Attendance::attendanceRequest($id, $this->Absent);
         } catch (\Exception $exception) {
             return view('error.show');
         }
