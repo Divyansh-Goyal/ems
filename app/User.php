@@ -37,6 +37,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Attendance::class);
     }
+
     public function managerTeam()
     {
         return $this->hasMany(managerTeam::class);

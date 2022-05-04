@@ -20,32 +20,32 @@ Route::group(['middleware' => 'usersession'], function () {
 
     Route::group(['middleware' => 'auth'], function () {
 
-        Route::patch('/update/password', 'adminController@updatePassword');
+        Route::patch('/update/password', 'AdminController@updatePassword');
 
         //Only for Admin
         Route::group(['middleware' => 'isadmin'], function () {
-            Route::get('/employee', 'adminController@showAdd');
-            Route::get('/employees', 'adminController@showlist');
+            Route::get('/employee', 'AdminController@showAdd');
+            Route::get('/employees', 'AdminController@showlist');
 
 
-            Route::get('/employees-salary', 'adminController@showsalary');
-            Route::patch('/salary/edit/{id}', 'adminController@salaryedit')->where('id', '[0-9]+');
+            Route::get('/employees-salary', 'AdminController@showsalary');
+            Route::patch('/salary/edit/{id}', 'AdminController@salaryedit')->where('id', '[0-9]+');
 
-            Route::get('/adminprofile', 'adminController@showProfile');
-            Route::patch('/update', 'adminController@updateprofile');
+            Route::get('/adminprofile', 'AdminController@showProfile');
+            Route::patch('/update', 'AdminController@updateprofile');
 
-            Route::get('/passwordChange', 'adminController@showPassword');
+            Route::get('/passwordChange', 'AdminController@showPassword');
 
 
-            Route::get('/employees-attendance', 'adminController@showAttendace');
-            Route::get('/requestPending', 'adminController@showPendingRequest');
-            Route::get('/requestPending/rejected/{id}', 'adminController@requestRejected')->where('id', '[0-9]+');
-            Route::get('/requestPending/approved/{id}', 'adminController@requestApproved')->where('id', '[0-9]+');
+            Route::get('/employees-attendance', 'AdminController@showAttendace');
+            Route::get('/requestPending', 'AdminController@showPendingRequest');
+            Route::get('/requestPending/rejected/{id}', 'AdminController@requestRejected')->where('id', '[0-9]+');
+            Route::get('/requestPending/approved/{id}', 'AdminController@requestApproved')->where('id', '[0-9]+');
 
-            Route::get('/employee/edit/{id}', 'adminController@showedit')->where('id', '[0-9]+');
-            Route::put('/employee/edit/{id}', 'adminController@edit')->where('id', '[0-9]+');
+            Route::get('/employee/edit/{id}', 'AdminController@showedit')->where('id', '[0-9]+');
+            Route::put('/employee/edit/{id}', 'AdminController@edit')->where('id', '[0-9]+');
 
-            Route::get('/employee/delete/{id}', 'adminController@delete')->where('id', '[0-9]+');
+            Route::get('/employee/delete/{id}', 'AdminController@delete')->where('id', '[0-9]+');
 
             //Route::match(['GET', 'PUT'], '/employee/edit/{id}', 'adminController@getedit')->where('id', '[0-9]+');
             //Route::get('/employee/search/{word}', 'adminController@search')->where('name', '[A-Za-z]+');
@@ -53,18 +53,18 @@ Route::group(['middleware' => 'usersession'], function () {
 
         //Only for User
         Route::group(['middleware' => 'isuser'], function () {
-            Route::get('/salary', 'employeeController@showSalary');
+            Route::get('/salary', 'EmployeeController@showSalary');
 
-            Route::get('/attendance', 'employeeController@showAttendance');
-            Route::post('/attendance/update', 'employeeController@attendanceRequest');
+            Route::get('/attendance', 'EmployeeController@showAttendance');
+            Route::post('/attendance/update', 'EmployeeController@attendanceRequest');
 
-            Route::get('/getTeamList', 'employeeController@showTeamList');
-            Route::post('/teamMember/add', 'employeeController@addMember');
+            Route::get('/getTeamList', 'EmployeeController@showTeamList');
+            Route::post('/teamMember/add', 'EmployeeController@addMember');
 
-            Route::get('/profile', 'employeeController@showProfile');
-            Route::patch('/profile/update', 'employeeController@updateprofile');
+            Route::get('/profile', 'EmployeeController@showProfile');
+            Route::patch('/profile/update', 'EmployeeController@updateprofile');
 
-            Route::get('/password', 'employeeController@showPassword');
+            Route::get('/password', 'EmployeeController@showPassword');
         });
     });
 });

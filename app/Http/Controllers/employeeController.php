@@ -13,28 +13,32 @@ use Illuminate\Support\Facades\Auth;
 
 class employeeController extends Controller
 {
-
+    protected $manager = 'Manager';
 
     public function showSalary()
     {
         return view('user.salaryDetail');
     }
+
     public function showAttendance()
     {
         return view('user.attendance');
     }
+
     public function showProfile()
     {
         return view('user.profile');
     }
+
     public function showPassword()
     {
         return view('user.passwordUpdate');
     }
+
     public function showTeamList()
     {
         try {
-            if (Auth::user()->role == 'Manager') {
+            if (Auth::user()->role == $this->manager) {
                 $id = Auth::user()->id;
                 $team_ids = ManagerTeam::getEmpId($id);
                 $id = [];
@@ -50,8 +54,10 @@ class employeeController extends Controller
         }
         return view('user.teamList', compact('users'));
     }
+
     public function updateprofile(EditProfileValidation $request)
     {
+        //For Future Reference
         // $this->validate($request, [
         //     'name' => 'required|string|max:255',
         //     'phone' => 'required|regex:/[0-9]{10}/',
@@ -59,11 +65,12 @@ class employeeController extends Controller
         // ]);
         try {
             $id = Auth::user()->id;
+            //For Future Reference
             // $name = $request->input('name');
             // $email = $request->input('email');
             // $phone = $request->input('phone');
             // $role = Auth::user()->role;
-            $UserEdit = User::edit($id, $request->all);
+            $userEdit = User::edit($id, $request->all);
         } catch (\Exception $exception) {
             return view('error.show');
         }

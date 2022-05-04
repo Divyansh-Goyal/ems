@@ -48,10 +48,10 @@ class Salary extends Model
         if (empty($id) || empty($data)) {
             return false;
         }
-        // salary::where('user_id', '=', $id)
-        //     ->update(['salary' => $salary]);
+
 
         $salary = Salary::where('user_id', '=', $id)->first();
+        //For Future Reference
         // $user->name = $name;
         // $user->email = $email;
         // $user->phone = $phone;

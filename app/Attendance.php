@@ -32,8 +32,6 @@ class Attendance extends Model
         return  Attendance::find($id);
     }
 
-
-
     /**
      * attendanceRequest
      *
@@ -55,7 +53,6 @@ class Attendance extends Model
         return $attendance->update();
     }
 
-
     /**
      * PendingRequest
      *
@@ -68,7 +65,6 @@ class Attendance extends Model
             ->get();
     }
 
-
     /**
      * requestCount
      *
@@ -79,8 +75,6 @@ class Attendance extends Model
         return (Attendance::select(DB::raw('SUM(if(`request`="Pending",1,0)) as Request'))
             ->get());
     }
-
-
 
     /**
      * getAttendanceUpdate

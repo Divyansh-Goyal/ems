@@ -11,6 +11,7 @@ class ManagerTeam extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     /**
      * deleteByEmpID
      *
@@ -25,6 +26,7 @@ class ManagerTeam extends Model
         managerTeam::where('employee_id', $id)
             ->delete();
     }
+
     /**
      * getEmpID
      *
@@ -38,6 +40,7 @@ class ManagerTeam extends Model
         return  managerTeam::select('employee_id')
             ->where('user_id', $id)->get();;
     }
+
     /**
      * addTeamMember
      *
@@ -55,6 +58,7 @@ class ManagerTeam extends Model
         $managerTeam->user_id = $id;
         $managerTeam->save();
     }
+
     public static function alreadyReady($employee_id)
     {
         if (empty($employee_id)) {
@@ -62,6 +66,7 @@ class ManagerTeam extends Model
         }
         return ManagerTeam::where('employee_id', $employee_id)->count();
     }
+
     public static function ManagerName()
     {
         return (managerTeam::where('employee_id', Auth::user()->id)

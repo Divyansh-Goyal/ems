@@ -26,10 +26,12 @@ class adminController extends Controller
 {
     protected $Present = 1;
     protected $Absent = 0;
+
     public function showAdd()
     {
         return view('admin.addEmployee');
     }
+
     public function showlist()
     {
         try {
@@ -44,7 +46,6 @@ class adminController extends Controller
         return view('admin.showEmployeeList', compact('users'));
     }
 
-
     public function showsalary()
     {
         try {
@@ -57,10 +58,10 @@ class adminController extends Controller
         }
         return view('admin.salaryDetail', compact('users'));
     }
+
     public function showAttendace(Request $request)
     {
-        // $from = $request['from'] ?? "";
-        // $to = $request['to'] ?? "";
+
 
         $from = $request->input('from', "");
         $to = $request->input('to', "");
@@ -92,6 +93,7 @@ class adminController extends Controller
         }
         return view('admin.attendanceRequest', compact('user_att'));
     }
+
     public function showEdit($id)
     {
 
@@ -113,6 +115,7 @@ class adminController extends Controller
     {
         return view('admin.profile');
     }
+
     public function showPassword()
     {
         return view('admin.updatePassword');
@@ -120,6 +123,7 @@ class adminController extends Controller
 
     public function edit(EditEmployeeValidation $request, $id)
     {
+        //For Future Reference
         // $this->validate($request, [
         //     'name' => 'required|string|max:255',
         //     'phone' => 'required|regex:/[0-9]{10}/',
@@ -130,11 +134,12 @@ class adminController extends Controller
             return redirect()->back();
         }
         try {
+            //For Future Reference
             // $name = $request->input('name');
             // $email = $request->input('email');
             // $phone = $request->input('phone');
             // $role = $request->input('role');
-            $UserEdit = User::edit($id, $request->all());
+            $userEdit = User::edit($id, $request->all());
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -169,6 +174,7 @@ class adminController extends Controller
     }
     public function salaryedit(EditSalaryValidation $request, $id)
     {
+        //For Future Reference
         // $this->validate($request, [
         //     'name' => 'required|max:255',
         //     'salary' => 'required',
@@ -177,18 +183,21 @@ class adminController extends Controller
             return redirect()->back();
         }
         try {
+            //For Future Reference
             // $salary =   $request->input('salary');
             // $name = $request->input('name');
             // User::updateName($id, $name);
-            $UserEdit = User::edit($id, $request->all());
-            $SalaryEdit = Salary::salaryUpdate($id, $request->all());
+            $userEdit = User::edit($id, $request->all());
+            $salaryEdit = Salary::salaryUpdate($id, $request->all());
         } catch (\Exception $exception) {
             return view('error.show');
         }
         return redirect()->back();
     }
+
     public function updateprofile(EditProfileValidation $request)
     {
+        //For Future Reference
         // $this->validate($request, [
         //     'name' => 'required|string|max:255',
         //     'phone' => 'required|regex:/[0-9]{10}/',
@@ -196,12 +205,13 @@ class adminController extends Controller
         // ]);
         try {
             $id = Auth::user()->id;
+            //For Future Reference
             // $name = $request->input('name');
             // $email = $request->input('email');
             // $phone = $request->input('phone');
             // $role = Auth::user()->role;
             // User::edit($id, $name, $email, $phone, $role);
-            $UserEdit = User::edit($id, $request->all());
+            $userEdit = User::edit($id, $request->all());
         } catch (\Exception $exception) {
             return view('error.show');
         }
@@ -210,6 +220,7 @@ class adminController extends Controller
 
     public function updatePassword(UpdatePasswordValidation $request)
     {
+        //For Future Reference
         // $this->validate($request, [
         //     'current_password' => 'required|string|min:8',
         //     'password' => 'required|string|min:8|confirmed',
@@ -217,7 +228,7 @@ class adminController extends Controller
         // ]);
         try {
             if (Hash::check($request->get('current_password'), Auth::user()->password)) {
-                $UserPasswordUpdate = User::updatePassword($request->password);
+                $userPasswordUpdate = User::updatePassword($request->password);
             } else {
                 return back()->with('msg', 'Current Password Do not Match');
             }
@@ -226,19 +237,21 @@ class adminController extends Controller
         }
         return redirect()->back()->with('message', 'Password Updated');
     }
+
     public function delete($id)
     {
         if (empty($id)) {
             return redirect()->back();
         }
         try {
-            $MenberDelete = ManagerTeam::deleteByEmpID($id);
-            $UserDelete = user::remove($id);
+            $memberDelete = ManagerTeam::deleteByEmpID($id);
+            $userDelete = User::remove($id);
         } catch (\Exception $exception) {
             return view('error.show');
         }
         return Redirect('/employees');
     }
+    //For Future Reference
     // public function search()
     // {
     //     if (!empty($_GET['words'])) {
